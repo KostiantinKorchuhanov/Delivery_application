@@ -1,0 +1,213 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.0 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.0">
+  <diagram name="Page-1" id="uyGOROstMGc67P4cnHUl">
+    <mxGraphModel dx="1251" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZZ66JLKxV-gaVDy9kNEi-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="User" vertex="1">
+          <mxGeometry height="320" width="280" x="1280" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ZZ66JLKxV-gaVDy9kNEi-2" parent="ZZ66JLKxV-gaVDy9kNEi-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="- &lt;code data-start=&quot;207&quot; data-end=&quot;220&quot;&gt;userId: int&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;228&quot; data-end=&quot;246&quot;&gt;username: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;254&quot; data-end=&quot;268&quot;&gt;name: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;276&quot; data-end=&quot;293&quot;&gt;surname: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;301&quot; data-end=&quot;316&quot;&gt;email: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;324&quot; data-end=&quot;345&quot;&gt;phoneNumber: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;353&quot; data-end=&quot;375&quot;&gt;passwordHash: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;383&quot; data-end=&quot;395&quot;&gt;role: Role&lt;/code&gt;" vertex="1">
+          <mxGeometry height="124" width="280" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ZZ66JLKxV-gaVDy9kNEi-3" parent="ZZ66JLKxV-gaVDy9kNEi-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Times New Roman;fontColor=default;" value="" vertex="1">
+          <mxGeometry height="8" width="280" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ZZ66JLKxV-gaVDy9kNEi-4" parent="ZZ66JLKxV-gaVDy9kNEi-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="+ &lt;code data-start=&quot;400&quot; data-end=&quot;411&quot;&gt;User()&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;419&quot; data-end=&quot;437&quot;&gt;getUserId(): int&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;445&quot; data-end=&quot;465&quot;&gt;getEmail(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;473&quot; data-end=&quot;492&quot;&gt;getName(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;500&quot; data-end=&quot;522&quot;&gt;getSurname(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;530&quot; data-end=&quot;556&quot;&gt;getPhoneNumber(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;564&quot; data-end=&quot;601&quot;&gt;setUsername(username: String): void&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;609&quot; data-end=&quot;632&quot;&gt;getUsername(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;640&quot; data-end=&quot;667&quot;&gt;getPasswordHash(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;675&quot; data-end=&quot;692&quot;&gt;getRole(): Role&lt;/code&gt;" vertex="1">
+          <mxGeometry height="162" width="280" y="158" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="Role" vertex="1">
+          <mxGeometry height="80" width="160" x="1040" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-3" parent="yeFn14DawW0WMuKVIxzt-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Times New Roman;fontColor=default;" value="" vertex="1">
+          <mxGeometry height="8" width="160" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-4" parent="yeFn14DawW0WMuKVIxzt-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="+ &lt;code data-start=&quot;119&quot; data-end=&quot;129&quot;&gt;values()&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;137&quot; data-end=&quot;154&quot;&gt;valueOf(String)&lt;/code&gt;" vertex="1">
+          <mxGeometry height="46" width="160" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-5" edge="1" parent="1" source="yeFn14DawW0WMuKVIxzt-1" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;align=left;fontColor=default;" target="ZZ66JLKxV-gaVDy9kNEi-1" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="250" as="sourcePoint" />
+            <mxPoint x="1270" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-8" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="RestaurantOwner" vertex="1">
+          <mxGeometry height="60" width="200" x="1000" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-10" parent="yeFn14DawW0WMuKVIxzt-8" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Times New Roman;fontColor=default;" value="" vertex="1">
+          <mxGeometry height="8" width="200" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-11" parent="yeFn14DawW0WMuKVIxzt-8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="+ &lt;code data-start=&quot;123&quot; data-end=&quot;145&quot;&gt;RestaurantOwner(...)&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="200" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-12" edge="1" parent="1" source="ZZ66JLKxV-gaVDy9kNEi-4" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=1.003;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.385;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Times New Roman;align=left;fontColor=default;" target="yeFn14DawW0WMuKVIxzt-8" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;Inheritance">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="1300" y="600" as="sourcePoint" />
+            <mxPoint x="1380" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-13" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="Driver" vertex="1">
+          <mxGeometry height="160" width="280" x="1240" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-14" parent="yeFn14DawW0WMuKVIxzt-13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="- &lt;code data-start=&quot;110&quot; data-end=&quot;132&quot;&gt;currentOrder: String&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="280" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-15" parent="yeFn14DawW0WMuKVIxzt-13" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Times New Roman;fontColor=default;" value="" vertex="1">
+          <mxGeometry height="8" width="280" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-16" parent="yeFn14DawW0WMuKVIxzt-13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="+ &lt;code data-start=&quot;137&quot; data-end=&quot;150&quot;&gt;Driver(...)&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;158&quot; data-end=&quot;185&quot;&gt;getCurrentOrder(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;193&quot; data-end=&quot;238&quot;&gt;setCurrentOrder(currentOrder: String): void&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;246&quot; data-end=&quot;280&quot;&gt;takeOrder(orderId: String): void&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;288&quot; data-end=&quot;311&quot;&gt;completeOrder(): void&lt;/code&gt;" vertex="1">
+          <mxGeometry height="100" width="280" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-17" edge="1" parent="1" source="ZZ66JLKxV-gaVDy9kNEi-4" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;align=left;fontColor=default;" target="yeFn14DawW0WMuKVIxzt-13" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;Inheritance">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="1683" y="460" as="sourcePoint" />
+            <mxPoint x="1300" y="542" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-18" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="Customer" vertex="1">
+          <mxGeometry height="60" width="160" x="1560" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-20" parent="yeFn14DawW0WMuKVIxzt-18" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Times New Roman;fontColor=default;" value="" vertex="1">
+          <mxGeometry height="8" width="160" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-21" parent="yeFn14DawW0WMuKVIxzt-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="+ &lt;code data-start=&quot;116&quot; data-end=&quot;131&quot;&gt;Customer(...)&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="160" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-22" edge="1" parent="1" source="ZZ66JLKxV-gaVDy9kNEi-4" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.502;exitY=1.007;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Times New Roman;align=left;fontColor=default;" target="yeFn14DawW0WMuKVIxzt-18" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;Inheritance">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="1450" y="460" as="sourcePoint" />
+            <mxPoint x="1490" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-27" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="160" x="1760" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-29" parent="yeFn14DawW0WMuKVIxzt-27" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Times New Roman;fontColor=default;" value="" vertex="1">
+          <mxGeometry height="8" width="160" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-30" parent="yeFn14DawW0WMuKVIxzt-27" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontColor=default;" value="+ Admin (. . .)" vertex="1">
+          <mxGeometry height="26" width="160" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-31" edge="1" parent="1" source="ZZ66JLKxV-gaVDy9kNEi-4" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;align=left;fontColor=default;" target="yeFn14DawW0WMuKVIxzt-27" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;Inheritance">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="1630" y="500" as="sourcePoint" />
+            <mxPoint x="1969" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-32" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" value="Review" vertex="1">
+          <mxGeometry height="290" width="280" x="1600" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-33" parent="yeFn14DawW0WMuKVIxzt-32" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" value="- &lt;code data-start=&quot;110&quot; data-end=&quot;125&quot;&gt;reviewId: int&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;133&quot; data-end=&quot;147&quot;&gt;order: Order&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;155&quot; data-end=&quot;171&quot;&gt;reviewer: User&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;179&quot; data-end=&quot;195&quot;&gt;reviewee: User&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;203&quot; data-end=&quot;216&quot;&gt;rating: int&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;224&quot; data-end=&quot;241&quot;&gt;comment: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;249&quot; data-end=&quot;275&quot;&gt;timestamp: LocalDateTime&lt;/code&gt;" vertex="1">
+          <mxGeometry height="114" width="280" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-34" parent="yeFn14DawW0WMuKVIxzt-32" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Times New Roman;" value="" vertex="1">
+          <mxGeometry height="8" width="280" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-35" parent="yeFn14DawW0WMuKVIxzt-32" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" value="+ &lt;code data-start=&quot;280&quot; data-end=&quot;293&quot;&gt;Review(...)&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;301&quot; data-end=&quot;321&quot;&gt;getReviewId(): int&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;329&quot; data-end=&quot;348&quot;&gt;getOrder(): Order&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;356&quot; data-end=&quot;377&quot;&gt;getReviewer(): User&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;385&quot; data-end=&quot;406&quot;&gt;getReviewee(): User&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;414&quot; data-end=&quot;432&quot;&gt;getRating(): int&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;440&quot; data-end=&quot;462&quot;&gt;getComment(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;470&quot; data-end=&quot;501&quot;&gt;getTimestamp(): LocalDateTime&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;509&quot; data-end=&quot;544&quot;&gt;setComment(comment: String): void&lt;/code&gt;" vertex="1">
+          <mxGeometry height="142" width="280" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-36" edge="1" parent="1" source="ZZ66JLKxV-gaVDy9kNEi-1" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="yeFn14DawW0WMuKVIxzt-32" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1650" y="110" as="sourcePoint" />
+            <mxPoint x="1810" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-39" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Order" vertex="1">
+          <mxGeometry height="360" width="280" x="1920" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-40" parent="yeFn14DawW0WMuKVIxzt-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- &lt;code data-start=&quot;109&quot; data-end=&quot;123&quot;&gt;orderId: int&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;131&quot; data-end=&quot;151&quot;&gt;customer: Customer&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;159&quot; data-end=&quot;183&quot;&gt;restaurant: Restaurant&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;191&quot; data-end=&quot;211&quot;&gt;dishes: List&amp;lt;Dish&amp;gt;&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;219&quot; data-end=&quot;235&quot;&gt;driver: Driver&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;243&quot; data-end=&quot;269&quot;&gt;orderStatus: OrderStatus&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;277&quot; data-end=&quot;297&quot;&gt;totalPrice: double&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;305&quot; data-end=&quot;331&quot;&gt;orderTime: LocalDateTime&lt;/code&gt;" vertex="1">
+          <mxGeometry height="124" width="280" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-41" parent="yeFn14DawW0WMuKVIxzt-39" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="280" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-42" parent="yeFn14DawW0WMuKVIxzt-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td data-col-size=&quot;xl&quot; data-start=&quot;332&quot; data-end=&quot;761&quot;&gt;+ &lt;code data-start=&quot;336&quot; data-end=&quot;348&quot;&gt;Order(...)&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;356&quot; data-end=&quot;375&quot;&gt;getOrderId(): int&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;383&quot; data-end=&quot;408&quot;&gt;getCustomer(): Customer&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;416&quot; data-end=&quot;445&quot;&gt;getRestaurant(): Restaurant&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;453&quot; data-end=&quot;478&quot;&gt;getDishes(): List&amp;lt;Dish&amp;gt;&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;486&quot; data-end=&quot;507&quot;&gt;getDriver(): Driver&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;515&quot; data-end=&quot;546&quot;&gt;getOrderStatus(): OrderStatus&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;554&quot; data-end=&quot;579&quot;&gt;getTotalPrice(): double&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;587&quot; data-end=&quot;618&quot;&gt;getOrderTime(): LocalDateTime&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;626&quot; data-end=&quot;657&quot;&gt;calculateTotalPrice(): double&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;665&quot; data-end=&quot;699&quot;&gt;claimOrder(driver: Driver): void&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;707&quot; data-end=&quot;730&quot;&gt;completeOrder(): void&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;738&quot; data-end=&quot;759&quot;&gt;cancelOrder(): void&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="202" width="280" y="158" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-43" edge="1" parent="1" source="yeFn14DawW0WMuKVIxzt-32" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="yeFn14DawW0WMuKVIxzt-39" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2240" y="90" as="sourcePoint" />
+            <mxPoint x="2400" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-46" edge="1" parent="1" source="yeFn14DawW0WMuKVIxzt-21" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=0.578;entryY=1.012;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.496;exitY=0.982;exitDx=0;exitDy=0;exitPerimeter=0;" target="yeFn14DawW0WMuKVIxzt-42" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1639" y="600" />
+              <mxPoint x="2082" y="600" />
+            </Array>
+            <mxPoint x="2080" y="630" as="sourcePoint" />
+            <mxPoint x="2240" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-51" edge="1" parent="1" source="yeFn14DawW0WMuKVIxzt-16" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=0.568;entryY=1.004;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.503;exitY=1.02;exitDx=0;exitDy=0;exitPerimeter=0;" target="yeFn14DawW0WMuKVIxzt-42" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1381" y="700" />
+              <mxPoint x="2079" y="700" />
+            </Array>
+            <mxPoint x="1760" y="688" as="sourcePoint" />
+            <mxPoint x="2563" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-52" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Restaurant" vertex="1">
+          <mxGeometry height="290" width="240" x="2240" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-53" parent="yeFn14DawW0WMuKVIxzt-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- &lt;code data-start=&quot;114&quot; data-end=&quot;133&quot;&gt;restaurantId: int&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;141&quot; data-end=&quot;165&quot;&gt;restaurantName: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;173&quot; data-end=&quot;187&quot;&gt;type: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;195&quot; data-end=&quot;212&quot;&gt;address: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;220&quot; data-end=&quot;242&quot;&gt;openingHours: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;250&quot; data-end=&quot;274&quot;&gt;owner: RestaurantOwner&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;282&quot; data-end=&quot;300&quot;&gt;menu: List&amp;lt;Dish&amp;gt;&lt;/code&gt;" vertex="1">
+          <mxGeometry height="114" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-54" parent="yeFn14DawW0WMuKVIxzt-52" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-55" parent="yeFn14DawW0WMuKVIxzt-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ &lt;code data-start=&quot;305&quot; data-end=&quot;322&quot;&gt;Restaurant(...)&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;330&quot; data-end=&quot;354&quot;&gt;getRestaurantId(): int&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;362&quot; data-end=&quot;391&quot;&gt;getRestaurantName(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;399&quot; data-end=&quot;418&quot;&gt;getType(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;426&quot; data-end=&quot;448&quot;&gt;getAddress(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;456&quot; data-end=&quot;483&quot;&gt;getOpeningHours(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;491&quot; data-end=&quot;520&quot;&gt;getOwner(): RestaurantOwner&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;528&quot; data-end=&quot;551&quot;&gt;getMenu(): List&amp;lt;Dish&amp;gt;&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;559&quot; data-end=&quot;586&quot;&gt;addDish(dish: Dish): void&lt;/code&gt;" vertex="1">
+          <mxGeometry height="142" width="240" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-56" edge="1" parent="1" source="yeFn14DawW0WMuKVIxzt-39" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="yeFn14DawW0WMuKVIxzt-52" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2340" y="100" as="sourcePoint" />
+            <mxPoint x="2660" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-57" edge="1" parent="1" source="yeFn14DawW0WMuKVIxzt-11" style="endArrow=none;html=1;rounded=0;entryX=0.506;entryY=1.008;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.499;exitY=0.979;exitDx=0;exitDy=0;exitPerimeter=0;" target="yeFn14DawW0WMuKVIxzt-55" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="720" />
+              <mxPoint x="1950" y="720" />
+              <mxPoint x="2361" y="720" />
+            </Array>
+            <mxPoint x="1510" y="921" as="sourcePoint" />
+            <mxPoint x="2568" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-59" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Dish" vertex="1">
+          <mxGeometry height="270" width="320" x="2520" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-60" parent="yeFn14DawW0WMuKVIxzt-59" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- &lt;code data-start=&quot;108&quot; data-end=&quot;121&quot;&gt;dishId: int&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;129&quot; data-end=&quot;147&quot;&gt;dishName: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;155&quot; data-end=&quot;176&quot;&gt;description: String&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;184&quot; data-end=&quot;199&quot;&gt;price: double&lt;/code&gt; &lt;br&gt; - &lt;code data-start=&quot;207&quot; data-end=&quot;227&quot;&gt;available: boolean&lt;/code&gt;" vertex="1">
+          <mxGeometry height="84" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-61" parent="yeFn14DawW0WMuKVIxzt-59" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-62" parent="yeFn14DawW0WMuKVIxzt-59" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ &lt;code data-start=&quot;232&quot; data-end=&quot;243&quot;&gt;Dish(...)&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;251&quot; data-end=&quot;269&quot;&gt;getDishId(): int&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;277&quot; data-end=&quot;300&quot;&gt;getDishName(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;308&quot; data-end=&quot;334&quot;&gt;getDescription(): String&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;342&quot; data-end=&quot;362&quot;&gt;getPrice(): double&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;370&quot; data-end=&quot;394&quot;&gt;isAvailable(): boolean&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;402&quot; data-end=&quot;439&quot;&gt;setDishName(dishName: String): void&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;447&quot; data-end=&quot;490&quot;&gt;setDescription(description: String): void&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;498&quot; data-end=&quot;529&quot;&gt;setPrice(price: double): void&lt;/code&gt; &lt;br&gt; + &lt;code data-start=&quot;537&quot; data-end=&quot;577&quot;&gt;setAvailable(available: boolean): void&lt;/code&gt;" vertex="1">
+          <mxGeometry height="152" width="320" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-63" edge="1" parent="1" source="yeFn14DawW0WMuKVIxzt-52" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="yeFn14DawW0WMuKVIxzt-59" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2700" y="100" as="sourcePoint" />
+            <mxPoint x="3000" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yeFn14DawW0WMuKVIxzt-64" edge="1" parent="1" source="yeFn14DawW0WMuKVIxzt-39" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="yeFn14DawW0WMuKVIxzt-59" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2420" y="100" />
+              <mxPoint x="3040" y="100" />
+            </Array>
+            <mxPoint x="2930" y="110" as="sourcePoint" />
+            <mxPoint x="3250" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
