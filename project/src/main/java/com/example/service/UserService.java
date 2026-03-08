@@ -1,14 +1,13 @@
 package com.example.service;
 
-import com.example.controllers.PasswordController;
-import com.example.model.operations.PerformLogin;
-import com.example.model.operations.PerformRegistration;
-import com.example.model.user.*;
-import com.example.model.utils.HybernateUtils;
+import com.example.repository.LoginOperation;
+import com.example.repository.RegisterOperation;
+import com.example.entity.user.*;
+import com.example.validation.subvalidation.PasswordValidation;
 import jakarta.persistence.EntityManager;
 
 public class UserService {
-    private PerformRegistration createOperation = new PerformRegistration();
+    private RegisterOperation createOperation = new RegisterOperation();
     public void registerUser(String name, String surname, String username, String email, String password, String confirmPassword, String phoneNumber, String userType) {
         if (!password.equals(confirmPassword)) {
             System.out.println("Oh noooooo, passwords doo not match");
@@ -36,20 +35,20 @@ public class UserService {
         user.setUsername(username);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
-        user.setPasswordHash(PasswordController.hashPassword(password));
+        user.setPasswordHash(PasswordValidation.hashPassword(password));
         createOperation.save(user);
     }
 
     public User loginUser(String email, String password) {
-        EntityManager entityManager = HybernateUtils.getEntityManager();
+        EntityManager entityManager = com.example.config.HibernateConfig.getEntityManager();
         try {
-            PerformLogin performLogin = new PerformLogin(entityManager);
-            User user = performLogin.findUserByEmail(email);
+            LoginOperation loginOperation = new LoginOperation(entityManager);
+            User user = loginOperation.findUserByEmail(email);
             if (user == null) {
                 System.out.println("Very very sad..... your user is not found");
                 return null;
             }
-            boolean validPassword = PasswordController.validatePassword(user.getPasswordHash(), password);
+            boolean validPassword = PasswordValidation.validatePassword(user.getPasswordHash(), password);
             if (validPassword) {
                 System.out.println("UOhohoh user is valid))))))");
                 return user;

@@ -12,9 +12,9 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("choose-user.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/app/ui/choose-user.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 650);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/com/example/app/styles/login-style.css").toExternalForm());
         stage.setTitle("hehehe");
         stage.setScene(scene);
         stage.setMinWidth(800);
