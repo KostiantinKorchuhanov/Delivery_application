@@ -8,9 +8,9 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
-public class LoginOperation {
+public class LoginRepository {
     EntityManager entityManager = HibernateConfig.getEntityManager();
-    public LoginOperation(EntityManager entityManager) {
+    public LoginRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

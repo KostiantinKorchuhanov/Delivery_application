@@ -4,9 +4,9 @@ import com.example.validation.subvalidation.EmailValidation;
 import com.example.validation.subvalidation.PhoneValidation;
 
 public class GeneralValidation {
-    public boolean validateEmail(String email) {
-        return EmailValidation.validateEmail(email);
-    }
+//    public boolean validateEmail(String email) {
+//        return EmailValidation.validateEmail(email);
+//    }
 
     public boolean validatePhone(String phone) {
         return PhoneValidation.validatePhone(phone);
@@ -14,6 +14,8 @@ public class GeneralValidation {
 
     public boolean validatePasswordMatch(String password, String repeatPassword) {
         return password != null && password.equals(repeatPassword);
+    }public boolean validateEmail(String email) {
+        return EmailValidation.validateEmail(email);
     }
 
     public boolean validateName(String name) {

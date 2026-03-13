@@ -26,38 +26,6 @@ public abstract class User {
     private String phoneNumber;
     private String passwordHash;
 
-    public int getUserId(){
-        return userId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -70,5 +38,4 @@ public abstract class User {
                 ", phoneNum='" + phoneNumber + '\'' +
                 '}';
     }
-
 }

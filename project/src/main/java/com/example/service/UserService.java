@@ -1,13 +1,13 @@
 package com.example.service;
 
-import com.example.repository.LoginOperation;
-import com.example.repository.RegisterOperation;
+import com.example.repository.LoginRepository;
+import com.example.repository.RegisterRepository;
 import com.example.entity.user.*;
 import com.example.validation.subvalidation.PasswordValidation;
 import jakarta.persistence.EntityManager;
 
 public class UserService {
-    private RegisterOperation createOperation = new RegisterOperation();
+    private RegisterRepository createOperation = new RegisterRepository();
     public void registerUser(String name, String surname, String username, String email, String password, String confirmPassword, String phoneNumber, String userType) {
         if (!password.equals(confirmPassword)) {
             System.out.println("Oh noooooo, passwords doo not match");
@@ -42,8 +42,8 @@ public class UserService {
     public User loginUser(String email, String password) {
         EntityManager entityManager = com.example.config.HibernateConfig.getEntityManager();
         try {
-            LoginOperation loginOperation = new LoginOperation(entityManager);
-            User user = loginOperation.findUserByEmail(email);
+            LoginRepository loginRepository = new LoginRepository(entityManager);
+            User user = loginRepository.findUserByEmail(email);
             if (user == null) {
                 System.out.println("Very very sad..... your user is not found");
                 return null;

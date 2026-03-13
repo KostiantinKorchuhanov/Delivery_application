@@ -3,7 +3,7 @@ package com.example.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class RegisterOperation {
+public class RegisterRepository {
     public <T> void save(T entity) {
         EntityManager entityManager = com.example.config.HibernateConfig.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();

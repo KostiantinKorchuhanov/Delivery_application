@@ -6,7 +6,9 @@ import com.example.entity.user.User;
 import com.example.service.UserService;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,5 +40,33 @@ public class NavigationManager {
         stage.setMinWidth(800);
         stage.setMinHeight(650);
         stage.show();
+    }
+
+    public static void navigateToRegistration() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/app/ui/admin-register.fxml"));
+        Scene scene = new Scene(loader.load(), 300, 450);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.setTitle("Add a new user");
+        stage.showAndWait();
+    }
+
+    public static void navigateToDelete() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/app/ui/admin-delete.fxml"));
+        Scene scene = new Scene(loader.load(), 300, 150);
+        scene.getStylesheets().add(NavigationManager.class.getResource("/com/example/app/styles/delete-user-style.css").toExternalForm());
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.setTitle("Add a new user");
+        stage.showAndWait();
+    }
+
+    public static void closeCurrentStage(Node node) {
+        Stage currentStage = (Stage) node.getScene().getWindow();
+        currentStage.close();
     }
 }

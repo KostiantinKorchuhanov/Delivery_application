@@ -6,6 +6,7 @@ import com.example.entity.user.*;
 import com.example.service.UserService;
 import com.example.ui.util.FadeAnimation;
 import com.example.validation.UserFieldValidation;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -32,39 +33,36 @@ public class ChooseUserController {
     @FXML private Button registerButton;
     @FXML private Button loginButton;
 
-    @FXML private void initialize() {
-        Stream.of(nameField, surnameField, usernameField, emailFieldRegister, phoneField, passwordFieldRegister, repeatPasswordField)
-                .forEach(field -> field.textProperty().addListener((obs, oldVal, newVal) ->
-                        registerButton.setDisable(!userFieldValidation.canBeRegistered(
-                                emailFieldRegister.getText(),
+    @FXML
+    private void initialize() {
+        phoneField.setTextFormatter(userFieldValidation.getPhoneFormatter(9));
+
+        registerButton.disableProperty().bind(Bindings.createBooleanBinding(() ->
+                        !userFieldValidation.canBeRegistered(
+                                usernameField.getText(),
                                 passwordFieldRegister.getText(),
                                 repeatPasswordField.getText(),
+                                phoneField.getText(),
+                                emailFieldRegister.getText(),
                                 nameField.getText(),
                                 surnameField.getText(),
-                                usernameField.getText(),
-                                phoneField.getText(),
                                 selectUser.getValue()
-                        ))
-                ));
-        selectUser.valueProperty().addListener((obs, oldVal, newVal) ->
-                registerButton.setDisable(!userFieldValidation.canBeRegistered(
-                        emailFieldRegister.getText(),
-                        passwordFieldRegister.getText(),
-                        repeatPasswordField.getText(),
-                        nameField.getText(),
-                        surnameField.getText(),
-                        usernameField.getText(),
-                        phoneField.getText(),
-                        selectUser.getValue()
-                ))
-        );
-        phoneField.setTextFormatter(userFieldValidation.getPhoneFormatter(9));
-        emailFieldLogin.textProperty().addListener((obs, oldVal, newVal) ->
-                loginButton.setDisable(!userFieldValidation.canBeLoggedIn(emailFieldLogin.getText(), passwordFieldLogin.getText()))
-        );
-        passwordFieldLogin.textProperty().addListener((obs, oldVal, newVal) ->
-                loginButton.setDisable(!userFieldValidation.canBeLoggedIn(emailFieldLogin.getText(), passwordFieldLogin.getText()))
-        );
+                        ),
+                usernameField.textProperty(),
+                passwordFieldRegister.textProperty(),
+                repeatPasswordField.textProperty(),
+                phoneField.textProperty(),
+                emailFieldRegister.textProperty(),
+                nameField.textProperty(),
+                surnameField.textProperty(),
+                selectUser.valueProperty()
+        ));
+
+        loginButton.disableProperty().bind(Bindings.createBooleanBinding(() ->
+                        !userFieldValidation.canBeLoggedIn(emailFieldLogin.getText(), passwordFieldLogin.getText()),
+                emailFieldLogin.textProperty(),
+                passwordFieldLogin.textProperty()
+        ));
     }
 
     @FXML
@@ -110,6 +108,7 @@ public class ChooseUserController {
                 emailFieldLogin.getText(),
                 passwordFieldLogin.getText());
         NavigationManager.navigateToUserList(user);
+        NavigationManager.closeCurrentStage(loginButton);
     }
 
     private void clearRegistrationFields(){
@@ -125,5 +124,12 @@ public class ChooseUserController {
     private void clearLoginFields(){
         emailFieldLogin.clear();
         passwordFieldLogin.clear();
+    }
+
+    // This is soooo stupid DO NOT FORGET TO DELETE THIS DISGUSTING THING
+    public void dirtyOperation(){
+        emailFieldLogin.setText("ff@ff.ff");
+        passwordFieldLogin.setText("1111");
+        loginButton.fire();
     }
 }
