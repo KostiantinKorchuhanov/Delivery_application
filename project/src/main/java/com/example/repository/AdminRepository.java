@@ -48,20 +48,6 @@ public class AdminRepository {
                 entityManager.remove(managedUser);
             }
             entityManager.getTransaction().commit();
-//            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//            CriteriaQuery<User> query = builder.createQuery(User.class);
-//            Root<User> root = query.from(User.class);
-//            query.select(root).where(builder.equal(root.get("email"), email));
-//            TypedQuery<User> typedQuery = entityManager.createQuery(query);
-//            User user = null;
-//            try {
-//                user = typedQuery.getSingleResult();
-//            }
-//            catch(jakarta.persistence.NoResultException e) {
-//                entityManager.getTransaction().rollback();
-//            }
-//            entityManager.remove(user);
-//            entityManager.getTransaction().commit();
         }
         catch(Exception e){
             if (entityManager.getTransaction().isActive()) {

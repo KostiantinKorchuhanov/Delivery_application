@@ -128,7 +128,7 @@ public class ChooseUserController {
 
     // This is soooo stupid DO NOT FORGET TO DELETE THIS DISGUSTING THING
     public void dirtyOperation(){
-        emailFieldLogin.setText("ff@ff.ff");
+        emailFieldLogin.setText("xx@xx.xx");
         passwordFieldLogin.setText("1111");
         loginButton.fire();
     }

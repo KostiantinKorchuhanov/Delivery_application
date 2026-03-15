@@ -1,11 +1,17 @@
 package com.example.entity.user;
 
 
+import com.example.entity.restaurant.Restaurant;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,9 +20,6 @@ import lombok.Setter;
 @Entity
 
 public class RestaurantOwner extends User{
-    private String restaurantName;
-
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
-    }
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Restaurant> restaurantList;
 }

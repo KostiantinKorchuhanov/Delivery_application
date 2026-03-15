@@ -1,8 +1,10 @@
 package com.example.service;
 
+import com.example.config.HibernateConfig;
 import com.example.repository.LoginRepository;
 import com.example.repository.RegisterRepository;
 import com.example.entity.user.*;
+import com.example.repository.ValidationRepository;
 import com.example.validation.subvalidation.PasswordValidation;
 import jakarta.persistence.EntityManager;
 
@@ -13,30 +15,47 @@ public class UserService {
             System.out.println("Oh noooooo, passwords doo not match");
             return;
         }
-        User user;
-        switch (userType){
-            case "Customer":
-                user = new Customer();
-                break;
-            case "Driver":
-                user = new Driver();
-                break;
-            case "Restaurant":
-                user = new RestaurantOwner();
-                break;
-            case "Admin":
-                user = new Admin();
-                break;
-            default:
+        EntityManager entityManager = HibernateConfig.getEntityManager();
+        try {
+            ValidationRepository validationRepository = new ValidationRepository(entityManager);
+            if (!validationRepository.validateUnique("email", email)) {
+                System.out.println("Oh noooooo, email already exists");
                 return;
+            }
+            if (!validationRepository.validateUnique("username", surname)) {
+                System.out.println("Oh noooooo, username already exists");
+                return;
+            }
+            User user;
+            switch (userType) {
+                case "Customer":
+                    user = new Customer();
+                    break;
+                case "Driver":
+                    user = new Driver();
+                    break;
+                case "Restaurant":
+                    user = new RestaurantOwner();
+                    break;
+                case "Admin":
+                    user = new Admin();
+                    break;
+                default:
+                    return;
+            }
+            user.setName(name);
+            user.setSurname(surname);
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPhoneNumber(phoneNumber);
+            user.setPasswordHash(PasswordValidation.hashPassword(password));
+            createOperation.save(user);
         }
-        user.setName(name);
-        user.setSurname(surname);
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPhoneNumber(phoneNumber);
-        user.setPasswordHash(PasswordValidation.hashPassword(password));
-        createOperation.save(user);
+        finally {
+            if  (entityManager != null &&  entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
     }
 
     public User loginUser(String email, String password) {
@@ -57,7 +76,9 @@ public class UserService {
                 return null;
             }
         } finally {
-            entityManager.close();
+            if (entityManager != null &&  entityManager.isOpen()) {
+                entityManager.close();
+            }
         }
     }
 }

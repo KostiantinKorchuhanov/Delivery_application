@@ -12,10 +12,11 @@ public class RegisterRepository {
             entityManager.persist(entity);
             transaction.commit();
         } catch (Exception e) {
-            if(transaction.isActive()) transaction.rollback();
+            if(transaction.isActive())
+            {
+                transaction.rollback();
+            }
             e.printStackTrace();
-        } finally {
-            entityManager.close();
         }
     }
 }

@@ -24,8 +24,8 @@ public class Main extends Application {
         enterStage.show();
 
         // This is soooo stupid DO NOT FORGET TO DELETE THIS DISGUSTING THING
-        //ChooseUserController controller = fxmlLoader.<ChooseUserController>getController();
-        //controller.dirtyOperation();
+        ChooseUserController controller = fxmlLoader.<ChooseUserController>getController();
+        controller.dirtyOperation();
 
 //        UserService userService = new UserService();
 //

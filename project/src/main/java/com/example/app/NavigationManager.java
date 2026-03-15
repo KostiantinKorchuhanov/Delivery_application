@@ -1,10 +1,9 @@
 package com.example.app;
 
+import com.example.session.UserSession;
 import com.example.entity.user.Admin;
 import com.example.entity.user.RestaurantOwner;
 import com.example.entity.user.User;
-import com.example.service.UserService;
-import jakarta.persistence.EntityManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -15,6 +14,7 @@ import java.io.IOException;
 
 public class NavigationManager {
     public static void navigateToUserList(User user) throws IOException {
+        UserSession.login(user);
         String fxmlPath;
         String cssPath;
         String userType;
@@ -62,6 +62,18 @@ public class NavigationManager {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.setTitle("Add a new user");
+        stage.showAndWait();
+    }
+
+    public static void navigateToNewRestaurant() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/app/ui/restaurant-register.fxml"));
+        Scene scene = new Scene(loader.load(), 300, 450);
+//        scene.getStylesheets().add(NavigationManager.class.getResource("/com/example/app/styles/delete-user-style.css").toExternalForm());
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.setTitle("Add a new restaurant");
         stage.showAndWait();
     }
 

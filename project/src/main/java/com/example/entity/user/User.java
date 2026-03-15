@@ -9,8 +9,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-//@MappedSuperclass
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 
@@ -18,9 +16,11 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+    @Column(unique = true,  nullable = false)
     private String username;
     private String name;
     private String surname;
+    @Column(unique = true,  nullable = false)
     private String email;
     @Column(length = 9)
     private String phoneNumber;
@@ -30,8 +30,8 @@ public abstract class User {
     public String toString() {
         return "User{" +
                 "id=" + userId +
-                ", username='" + name + '\'' +
-                ", username='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + passwordHash + '\'' +
                 ", email='" + email + '\'' +

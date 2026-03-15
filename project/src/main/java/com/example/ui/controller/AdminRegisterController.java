@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class AdminRegisterWindow {
+public class AdminRegisterController {
     private UserFieldValidation userFieldValidation = new UserFieldValidation();
     @FXML private Button registerButton;
     @FXML private TextField nameField;

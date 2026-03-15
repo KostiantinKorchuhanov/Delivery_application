@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class AdminDeleteWindow {
+public class AdminDeleteController {
     @FXML private TextField emailField;
     @FXML private Button deleteButton;
 
