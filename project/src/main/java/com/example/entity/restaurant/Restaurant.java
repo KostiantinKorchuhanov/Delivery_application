@@ -27,6 +27,6 @@ public class Restaurant {
     @ManyToOne
     @JoinColumn(name = "ownerId")
     private RestaurantOwner owner;
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Dish> menu;
 }

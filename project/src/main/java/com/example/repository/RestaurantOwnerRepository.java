@@ -35,4 +35,33 @@ public class RestaurantOwnerRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public void updateRestaurant(Restaurant restaurant) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(restaurant);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+        }
+    }
+
+    public void deleteRestaurant(int restaurantId) {
+        try {
+            entityManager.getTransaction().begin();
+            Restaurant restaurant = entityManager.find(Restaurant.class, restaurantId);
+            if (restaurant != null){
+                entityManager.remove(restaurant);
+            }
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+        }
+    }
 }
