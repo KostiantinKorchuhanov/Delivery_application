@@ -19,6 +19,7 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int dishId;
     private String dishName;
+    @Column(length = 1024)
     private String description;
     private double price;
     private boolean available = true;

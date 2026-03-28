@@ -9,23 +9,17 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
 public class LoginRepository {
-    EntityManager entityManager = HibernateConfig.getEntityManager();
+    private final EntityManager entityManager;
     public LoginRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     public User findUserByEmail(String email) {
-        try{
-            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<User> query = builder.createQuery(User.class);
-            Root<User> root = query.from(User.class);
-            query.select(root).where(builder.equal(root.get("email"), email));
-            TypedQuery<User> typedQuery = entityManager.createQuery(query);
-            User user = typedQuery.getSingleResult();
-            return user;
-        }
-        catch(Exception e){
-            return null;
-        }
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root).where(builder.equal(root.get("email"), email));
+
+        return entityManager.createQuery(query).getResultStream().findFirst().orElse(null);
     }
 }

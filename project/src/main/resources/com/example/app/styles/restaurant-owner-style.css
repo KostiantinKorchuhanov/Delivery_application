@@ -65,14 +65,6 @@
     -fx-text-fill: white;
 }
 
-#deleteButton {
-    -fx-border-color: rgba(255, 80, 80, 0.3);
-    -fx-border-radius: 10;
-}
-#deleteButton:hover {
-    -fx-background-color: #ff5f5f;
-}
-
 .content-scroll {
     -fx-background-color: rgba(249, 249, 249, 0.05);
     -fx-background: rgba(249, 249, 249, 0.09);
@@ -117,4 +109,19 @@
     -fx-font-size: 16;
     -fx-fill: #bcaca0;
     -fx-font-weight: cursive;
+}
+
+.text-field {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #cccccc;
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 20;
+    -fx-padding: 5 15 5 15;
+}
+
+.text-field:focused {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+    -fx-border-color: #b89e8b;
 }

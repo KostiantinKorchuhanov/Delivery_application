@@ -4,6 +4,7 @@ package com.example.ui.controller;
 import com.example.app.NavigationManager;
 import com.example.entity.user.*;
 import com.example.service.UserService;
+import com.example.ui.helper.AlertWindow;
 import com.example.ui.util.FadeAnimation;
 import com.example.validation.UserFieldValidation;
 import javafx.beans.binding.Bindings;
@@ -89,26 +90,44 @@ public class ChooseUserController {
 
     @FXML
     private void registerNewUser(){
-        String userType = selectUser.getValue();
-        UserService userService = new UserService();
-        userService.registerUser(
-                nameField.getText(),
-                surnameField.getText(),
-                usernameField.getText(),
-                emailFieldRegister.getText(),
-                passwordFieldRegister.getText(),
-                repeatPasswordField.getText(),
-                phoneField.getText(), userType);
+        try {
+            String userType = selectUser.getValue();
+            UserService userService = new UserService();
+
+            boolean success = userService.registerUser(
+                    nameField.getText(),
+                    surnameField.getText(),
+                    usernameField.getText(),
+                    emailFieldRegister.getText(),
+                    passwordFieldRegister.getText(),
+                    repeatPasswordField.getText(),
+                    phoneField.getText(), userType);
+            if (success) {
+                loginClicked();
+                clearRegistrationFields();
+            }
+        } catch (Exception e) {
+            AlertWindow.showError("Error", "Could not complete registration, I am stupid: " + e.getMessage());
+        }
     }
 
     @FXML
     private void loginUser() throws IOException {
-        UserService userService = new UserService();
-        User user = userService.loginUser(
-                emailFieldLogin.getText(),
-                passwordFieldLogin.getText());
-        NavigationManager.navigateToUserList(user);
-        NavigationManager.closeCurrentStage(loginButton);
+        try {
+            UserService userService = new UserService();
+            User user = userService.loginUser(
+                    emailFieldLogin.getText(),
+                    passwordFieldLogin.getText());
+            if (user != null) {
+                NavigationManager.navigateToUserList(user);
+                NavigationManager.closeCurrentStage(loginButton);
+            } else {
+                AlertWindow.showError("Login Failed", "Invalid email or password. Please try again.");
+            }
+        } catch (Exception e) {
+            AlertWindow.showError("System Error", "An error occurred during login, idk why");
+            e.printStackTrace();
+        }
     }
 
     private void clearRegistrationFields(){
@@ -128,7 +147,7 @@ public class ChooseUserController {
 
     // This is soooo stupid DO NOT FORGET TO DELETE THIS DISGUSTING THING
     public void dirtyOperation(){
-        emailFieldLogin.setText("xx@xx.xx");
+        emailFieldLogin.setText("ff@ff.ff");
         passwordFieldLogin.setText("1111");
         loginButton.fire();
     }

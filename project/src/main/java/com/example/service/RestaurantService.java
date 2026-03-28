@@ -3,57 +3,50 @@ package com.example.service;
 import com.example.config.HibernateConfig;
 import com.example.entity.restaurant.Dish;
 import com.example.entity.restaurant.Restaurant;
-import com.example.entity.user.RestaurantOwner;
-import com.example.repository.RestaurantOwnerRepository;
+import com.example.repository.RestaurantRepository;
 import jakarta.persistence.EntityManager;
-
 import java.util.List;
 
-public class RestaurantOwnerService {
+public class RestaurantService {
 
-    public List<Restaurant> findAllRestaurants(int ownerId) {
+    public List<Dish> findAllDishes(int restaurantId) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
-            RestaurantOwnerRepository repo = new RestaurantOwnerRepository(em);
-            return repo.getRestaurantList(ownerId);
+            RestaurantRepository repo = new RestaurantRepository(em);
+            return repo.getDishList(restaurantId);
         } finally {
             em.close();
         }
     }
 
-    public void saveNewRestaurant(String name, String description, String address, int ownerId) {
+    public void addDish(int restaurantId, Dish dish) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             em.getTransaction().begin();
 
-            RestaurantOwner owner = em.find(RestaurantOwner.class, ownerId);
-            if (owner != null) {
-                Restaurant restaurant = new Restaurant();
-                restaurant.setRestaurantName(name);
-                restaurant.setDescription(description);
-                restaurant.setAddress(address);
-                restaurant.setOwner(owner);
-
-                RestaurantOwnerRepository repo = new RestaurantOwnerRepository(em);
-                repo.addRestaurant(restaurant);
+            Restaurant managedRestaurant = em.find(Restaurant.class, restaurantId);
+            if (managedRestaurant != null) {
+                dish.setRestaurant(managedRestaurant);
+                RestaurantRepository repo = new RestaurantRepository(em);
+                repo.addDish(dish);
             }
 
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) em.getTransaction().rollback();
-            throw new RuntimeException("Failed to save restaurant", e);
+            e.printStackTrace();
         } finally {
             em.close();
         }
     }
 
-    public void updateRestaurant(Restaurant restaurant) {
+    public void updateDish(Dish dish) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             em.getTransaction().begin();
 
-            RestaurantOwnerRepository repo = new RestaurantOwnerRepository(em);
-            repo.updateRestaurant(restaurant);
+            RestaurantRepository repo = new RestaurantRepository(em);
+            repo.updateDish(dish);
 
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -64,13 +57,15 @@ public class RestaurantOwnerService {
         }
     }
 
-    public void deleteRestaurant(int restaurantId) {
+    public void deleteDish(Dish dish) {
+        if (dish == null) return;
+
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             em.getTransaction().begin();
 
-            RestaurantOwnerRepository repo = new RestaurantOwnerRepository(em);
-            repo.deleteRestaurant(restaurantId);
+            RestaurantRepository repo = new RestaurantRepository(em);
+            repo.deleteDish((long) dish.getDishId());
 
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -81,14 +76,13 @@ public class RestaurantOwnerService {
         }
     }
 
-    public List<Restaurant> searchRestaurants(int ownerId, String searchText) {
+    public List<Dish> searchDishes(int restaurantId, String searchText) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             if (searchText == null || searchText.trim().isEmpty()) {
-                return findAllRestaurants(ownerId);
+                return findAllDishes(restaurantId);
             }
-            RestaurantOwnerRepository repo = new RestaurantOwnerRepository(em);
-            return repo.searchRestaurants(ownerId, searchText);
+            return new RestaurantRepository(em).searchDishes(restaurantId, searchText);
         } finally {
             em.close();
         }

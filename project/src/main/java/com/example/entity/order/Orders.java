@@ -17,21 +17,31 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-
+@Table(name = "orders")
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
     private User customer;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurantId")
     private Restaurant restaurant;
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderInfo> orderItemList = new ArrayList<>();
-
     private double orderTotalPrice;
     private String status;
+
+    public void addOrderItem(OrderInfo item) {
+        orderItemList.add(item);
+        item.setOrders(this);
+        calculateTotalPrice();
+    }
+
+    public void calculateTotalPrice() {
+        this.orderTotalPrice = orderItemList.stream()
+                .mapToDouble(item -> item.getPrice() * item.getQuantity())
+                .sum();
+    }
 }

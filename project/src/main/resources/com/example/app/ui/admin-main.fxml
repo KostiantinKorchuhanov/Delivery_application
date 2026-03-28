@@ -80,7 +80,7 @@
 
       <StackPane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="110.0">
          <children>
-            <TableView fx:id="tableOfUsers" prefHeight="500.0" prefWidth="600.0">
+            <TableView fx:id="tableOfUsers" prefHeight="500.0" prefWidth="600.0" visible="false">
                <columns>
                   <TableColumn fx:id="nameColumn" prefWidth="100.0" text="Name" />
                   <TableColumn fx:id="surnameColumn" prefWidth="100.0" text="Surname" />
@@ -102,6 +102,15 @@
                   <Text text="Statistics" />
                </children>
             </VBox>
+            <TableView fx:id="tableOfOrders" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="orderCustomerColumn" prefWidth="75.0" text="Customer order" />
+                <TableColumn fx:id="orderRestaurantColumn" prefWidth="75.0" text="Restaurant" />
+                  <TableColumn fx:id="orderDetailsColumn" prefWidth="75.0" text="Details" />
+                  <TableColumn fx:id="orderPriceColumn" prefWidth="75.0" text="Price" />
+                  <TableColumn fx:id="orderStatusColumn" prefWidth="75.0" text="Status" />
+              </columns>
+            </TableView>
          </children>
       </StackPane>
    </children>

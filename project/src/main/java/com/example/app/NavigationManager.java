@@ -1,13 +1,17 @@
 package com.example.app;
 
+import com.example.entity.restaurant.Dish;
 import com.example.entity.restaurant.Restaurant;
 import com.example.session.UserSession;
 import com.example.entity.user.Admin;
 import com.example.entity.user.RestaurantOwner;
 import com.example.entity.user.User;
+//import com.example.ui.controller.RestaurantOwnerAddDishController;
+import com.example.ui.controller.RestaurantDishController;
 import com.example.ui.controller.RestaurantOwnerRegisterController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -71,7 +75,6 @@ public class NavigationManager {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/app/ui/restaurant-register.fxml"));
         Scene scene = new Scene(loader.load(), 400, 450);
-//        scene.getStylesheets().add(NavigationManager.class.getResource("/com/example/app/styles/delete-user-style.css").toExternalForm());
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
@@ -82,12 +85,37 @@ public class NavigationManager {
     public static void navigateToEditRestaurant(Restaurant restaurant, Runnable runnable) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/app/ui/restaurant-register.fxml"));
-        Scene scene = new Scene(loader.load(), 300, 450);
+        Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         RestaurantOwnerRegisterController controller = loader.getController();
         controller.setExistingRestaurant(restaurant);
         controller.setRefreshCallback(runnable);
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setMaximized(true);
+        stage.showAndWait();
+    }
+
+    public static void navigateToDish(Restaurant restaurant) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/app/ui/restaurant-add-dish.fxml"));
+        Scene scene = new Scene(loader.load(), 400, 400);
+        stage.setScene(scene);
+
+        RestaurantDishController controller = loader.getController();
+        controller.setRestaurant(restaurant);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.showAndWait();
+    }
+
+    public static void navigateToEditDish(Dish dish) throws IOException {
+        FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource("/com/example/app/ui/restaurant-add-dish.fxml"));
+        Parent root = loader.load();
+        RestaurantDishController controller = loader.getController();
+        controller.setDishData(dish);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.showAndWait();
     }
 

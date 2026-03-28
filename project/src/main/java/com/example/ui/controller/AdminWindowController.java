@@ -1,12 +1,15 @@
 package com.example.ui.controller;
 
 import com.example.app.NavigationManager;
+import com.example.entity.order.Orders;
 import com.example.entity.user.Customer;
 import com.example.entity.user.Driver;
 import com.example.entity.user.RestaurantOwner;
 import com.example.entity.user.User;
 import com.example.service.AdminService;
+import com.example.ui.helper.AlertWindow;
 import com.example.ui.util.FadeAnimation;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,6 +20,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AdminWindowController {
     @FXML private Button customerButton;
@@ -36,6 +40,13 @@ public class AdminWindowController {
     @FXML private TableColumn<User, String> emailColumn;
     @FXML private TableColumn<User, String> phoneColumn;
     @FXML private TableColumn<User, String> usernameColumn;
+    @FXML private TableView<Orders> tableOfOrders;
+    @FXML private TableColumn<Orders, String> orderCustomerColumn;
+    @FXML private TableColumn<Orders, String> orderRestaurantColumn;
+    @FXML private TableColumn<Orders, String> orderDetailsColumn;
+    @FXML private TableColumn<Orders, Double> orderPriceColumn;
+    @FXML private TableColumn<Orders, String> orderStatusColumn;
+
     private final AdminService adminService = new AdminService();
 
     @FXML private void initialize(){
@@ -92,6 +103,28 @@ public class AdminWindowController {
                 switchToHome();
             }
         });
+        orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("orderTotalPrice"));
+        orderStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        orderCustomerColumn.setCellValueFactory(d -> {
+            User c = d.getValue().getCustomer();
+            return new SimpleStringProperty(c.getName() + " " + c.getSurname());
+        });
+        orderRestaurantColumn.setCellValueFactory(d ->
+                new SimpleStringProperty(d.getValue().getRestaurant().getRestaurantName()));
+        orderDetailsColumn.setCellValueFactory(d -> {
+            String summary = d.getValue().getOrderItemList().stream()
+                    .map(item -> item.getDish().getDishName() + " x" + item.getQuantity())
+                    .collect(Collectors.joining(", "));
+            return new SimpleStringProperty(summary);
+        });
+        tableOfOrders.setEditable(true);
+        orderStatusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        orderStatusColumn.setOnEditCommit(event -> {
+            Orders order = event.getRowValue();
+            String newValue = event.getNewValue();
+            order.setStatus(newValue);
+            adminService.updateOrder(order);
+        });
     }
 
     @FXML private void switchToHome(){
@@ -100,12 +133,16 @@ public class AdminWindowController {
         List<User> result = adminService.searchUsers(searchField.getText());
         ObservableList<User> observableList = FXCollections.observableArrayList(result);
         tableOfUsers.setItems(observableList);
+        tableOfUsers.setVisible(true);
+        tableOfOrders.setVisible(false);
     }
 
     @FXML private void searchUsers(){
         List<User> result = adminService.searchUsers(searchField.getText());
         ObservableList<User> observableList = FXCollections.observableArrayList(result);
         tableOfUsers.setItems(observableList);
+        tableOfUsers.setVisible(true);
+        tableOfOrders.setVisible(false);
     }
 
     @FXML private void switchToCustomers(){
@@ -114,6 +151,8 @@ public class AdminWindowController {
         List<? extends User> customers = adminService.allUsers(Customer.class);
         ObservableList<User> obsList = FXCollections.observableArrayList(customers);
         tableOfUsers.setItems(obsList);
+        tableOfUsers.setVisible(true);
+        tableOfOrders.setVisible(false);
     }
     @FXML private void switchToDrivers(){
         buttonManagement(false, false, true,false,false,false, false);
@@ -121,6 +160,8 @@ public class AdminWindowController {
         List<? extends User> driver = adminService.allUsers(Driver.class);
         ObservableList<User> obsList = FXCollections.observableArrayList(driver);
         tableOfUsers.setItems(obsList);
+        tableOfUsers.setVisible(true);
+        tableOfOrders.setVisible(false);
     }
     @FXML private void switchToRestaurant(){
         buttonManagement(false, false, false,true,false,false, false);
@@ -128,11 +169,19 @@ public class AdminWindowController {
         List<? extends User> restaurant = adminService.allUsers(RestaurantOwner.class);
         ObservableList<User> obsList = FXCollections.observableArrayList(restaurant);
         tableOfUsers.setItems(obsList);
+        tableOfUsers.setVisible(true);
+        tableOfOrders.setVisible(false);
     }
 
     @FXML private void switchToOrders(){
-        buttonManagement(false, false, false,false,true,false, false);
+        buttonManagement(false, false, false, false, true, false, true);
+        tableOfUsers.setVisible(false);
+        statisticsTab.setVisible(false);
+        //ordersTab.setVisible(true);
         FadeAnimation.fadeAnimation(ordersTab);
+        List<Orders> allOrders = adminService.getAllOrders();
+        tableOfOrders.setItems(FXCollections.observableArrayList(allOrders));
+        tableOfOrders.setVisible(true);
     }
 
     @FXML private void switchToStatistics(){
@@ -155,12 +204,14 @@ public class AdminWindowController {
         ordersButton.setDisable(orders);
         statisticsButton.setDisable(statistics);
         homeButton.setDisable(home);
+        tableOfUsers.setVisible(home || customer || driver || restaurant);
+        ordersTab.setVisible(orders);
+        statisticsTab.setVisible(statistics);
         if (clearField) {
             searchField.clear();
         }
     }
 
     @FXML private void changeMenuVisibility(){
-
     }
 }
