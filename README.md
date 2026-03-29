@@ -1,4 +1,4 @@
-# The project is built using a Maven/Gradle multi-module architecture:
+# The project is built using a Maven multi-module architecture:
 - ```core``` – Shared JPA/Hibernate entities, services, and core business logic.
 - ```delivery-web``` – Spring Boot interface (Thymeleaf) for customer and driver registration.
 - ```delivery-desktop``` – Administrative and Restaurant Owner dashboard built with JavaFX.
