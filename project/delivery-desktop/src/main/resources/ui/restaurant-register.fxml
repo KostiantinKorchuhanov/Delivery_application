@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="995.0" styleClass="anchor-pane" stylesheets="@../styles/restaurant-dish.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ui.controller.RestaurantOwnerRegisterController">
+   <children>
+      <Label styleClass="field-label" text="Restaurant Name" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="25.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font></Label>
+      <TextField fx:id="restaurantNameField" promptText="Enter name..." AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+      </TextField>
+
+      <Label styleClass="field-label" text="Description" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font></Label>
+      <TextArea fx:id="restaurantDescriptionField" prefHeight="100.0" promptText="Tell about your restaurant..." styleClass="text-area" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="125.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+      </TextArea>
+
+      <Label styleClass="field-label" text="Address" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font></Label>
+      <TextField fx:id="restaurantAddressField" promptText="City, Street, Building..." AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="265.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+      </TextField>
+
+      <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteRestaurant" styleClass="delete-button" text="Delete" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="43.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
+      <AnchorPane fx:id="foodPane" prefHeight="350.0" prefWidth="935.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="320.0">
+         <children>
+            <ToolBar prefHeight="40.0" prefWidth="782.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
+               <items>
+                  <TextField fx:id="searchField" onAction="#searchFood" prefWidth="400.0" promptText="Search dishes...">
+                     <font>
+                        <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="addFoodButton" mnemonicParsing="false" onAction="#addFood" prefWidth="100.0" text="Add">
+                     <font>
+                        <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </items>
+            </ToolBar>
+            <ScrollPane fx:id="showFood" fitToWidth="true" styleClass="content-scroll" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="70.0">
+               <content>
+                  <FlowPane fx:id="cardPane" hgap="20.0" vgap="20.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </FlowPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+
+      <Button fx:id="addButton" mnemonicParsing="false" onAction="#addNewRestaurant" prefWidth="100.0" text="Save" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="discardButton" mnemonicParsing="false" onAction="#discardChanges" text="Discard" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
