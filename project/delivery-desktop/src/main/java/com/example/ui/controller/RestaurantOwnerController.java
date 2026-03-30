@@ -27,23 +27,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RestaurantOwnerController {
-    @FXML private FlowPane restaurantFlowPane;
-    @FXML private ScrollPane scrollPane;
-    @FXML private Button myRestaurantsButton;
-    @FXML private Button logoutButton;
-    @FXML private TextField searchField;
-    @FXML private Button orderButton;
-    @FXML private TableView<Orders> tableOrders;
-    @FXML private TableColumn<Orders, Integer> colId;
-    @FXML private TableColumn<Orders, String> colRestaurant;
-    @FXML private TableColumn<Orders, String> colCustomer;
-    @FXML private TableColumn<Orders, String> colItems;
-    @FXML private TableColumn<Orders, Double> colTotal;
-    @FXML private TableColumn<Orders, String> colStatus;
+    @FXML
+    private FlowPane restaurantFlowPane;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private Button myRestaurantsButton;
+    @FXML
+    private Button logoutButton;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button orderButton;
+    @FXML
+    private TableView<Orders> tableOrders;
+    @FXML
+    private TableColumn<Orders, Integer> colId;
+    @FXML
+    private TableColumn<Orders, String> colRestaurant;
+    @FXML
+    private TableColumn<Orders, String> colCustomer;
+    @FXML
+    private TableColumn<Orders, String> colItems;
+    @FXML
+    private TableColumn<Orders, Double> colTotal;
+    @FXML
+    private TableColumn<Orders, String> colStatus;
 
     private final RestaurantOrderService restaurantOrderService = new RestaurantOrderService();
     private final RestaurantOwnerService restaurantOwnerService = new RestaurantOwnerService();
-    private ObservableList<Orders> ordersData = FXCollections.observableArrayList();
+    private final ObservableList<Orders> ordersData = FXCollections.observableArrayList();
     private FilteredList<Orders> filteredOrders;
     private int currentOwnerId;
 
@@ -116,7 +129,7 @@ public class RestaurantOwnerController {
     }
 
     @FXML
-    private void openOrders(){
+    private void openOrders() {
         tableOrders.setVisible(true);
         scrollPane.setVisible(false);
         myRestaurantsButton.setDisable(false);
@@ -176,14 +189,18 @@ public class RestaurantOwnerController {
         return card;
     }
 
-    @FXML private void addRestaurant() throws IOException {
+    @FXML
+    private void addRestaurant() throws IOException {
         NavigationManager.navigateToNewRestaurant();
         openRestaurants();
     }
 
-    @FXML private void openStatistics(){}
+    @FXML
+    private void openStatistics() {
+    }
 
-    @FXML public void logoutUser(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void logoutUser(ActionEvent actionEvent) throws IOException {
         UserSession.logout();
         NavigationManager.closeCurrentStage(logoutButton);
         NavigationManager.navigateToLogout();

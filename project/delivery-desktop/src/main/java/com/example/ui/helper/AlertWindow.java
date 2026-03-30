@@ -5,6 +5,7 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
+
 public class AlertWindow {
     public static void showInformation(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

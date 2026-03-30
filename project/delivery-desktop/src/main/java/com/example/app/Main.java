@@ -1,23 +1,11 @@
 package com.example.app;
 
-import com.example.config.HibernateConfig;
-import com.example.entity.order.OrderInfo;
-import com.example.entity.order.Orders;
-import com.example.entity.restaurant.Dish;
-import com.example.entity.restaurant.Restaurant;
-import com.example.entity.user.Customer;
-import com.example.entity.user.RestaurantOwner;
-import com.example.service.UserService;
-import com.example.ui.controller.ChooseUserController;
-import jakarta.persistence.EntityManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class Main extends Application {
     @Override

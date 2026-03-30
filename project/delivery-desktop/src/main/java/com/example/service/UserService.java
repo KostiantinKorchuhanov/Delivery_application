@@ -1,9 +1,11 @@
 package com.example.service;
 
 import com.example.config.HibernateConfig;
+import com.example.entity.user.Admin;
+import com.example.entity.user.RestaurantOwner;
+import com.example.entity.user.User;
 import com.example.repository.LoginRepository;
 import com.example.repository.RegisterRepository;
-import com.example.entity.user.*;
 import com.example.repository.ValidationRepository;
 import com.example.ui.helper.AlertWindow;
 import com.example.validation.subvalidation.PasswordValidation;
@@ -76,3 +78,4 @@ public class UserService {
         };
     }
 }
+

@@ -1,6 +1,5 @@
 package com.example.repository;
 
-import com.example.config.HibernateConfig;
 import com.example.entity.order.Orders;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -34,3 +33,4 @@ public class RestaurantOrderReporitory {
         em.merge(order);
     }
 }
+

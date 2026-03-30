@@ -10,18 +10,29 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 public class AdminRegisterController {
-    private UserFieldValidation userFieldValidation = new UserFieldValidation();
-    @FXML private Button registerButton;
-    @FXML private TextField nameField;
-    @FXML private TextField emailField;
-    @FXML private TextField passwordField;
-    @FXML private TextField repeatePasswordField;
-    @FXML private TextField usernameField;
-    @FXML private TextField phoneField;
-    @FXML private TextField surnameField;
-    @FXML private ComboBox<String> userType;
+    private final UserFieldValidation userFieldValidation = new UserFieldValidation();
+    @FXML
+    private Button registerButton;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private TextField repeatePasswordField;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField surnameField;
+    @FXML
+    private ComboBox<String> userType;
 
-    @FXML private void initialize(){
+
+    @FXML
+    private void initialize() {
         phoneField.setTextFormatter(userFieldValidation.getPhoneFormatter(9));
 
         registerButton.disableProperty().bind(Bindings.createBooleanBinding(() ->
@@ -46,7 +57,8 @@ public class AdminRegisterController {
         ));
     }
 
-    @FXML private void registerNewUser(){
+    @FXML
+    private void registerNewUser() {
         UserService userService = new UserService();
         userService.registerUser(
                 nameField.getText(),

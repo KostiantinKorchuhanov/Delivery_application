@@ -5,11 +5,12 @@ import com.example.entity.order.Orders;
 import com.example.entity.user.User;
 import com.example.repository.AdminRepository;
 import jakarta.persistence.EntityManager;
+
 import java.util.List;
 
 public class AdminService {
 
-    public <T extends User> List<T> allUsers(Class<T> userClass){
+    public <T extends User> List<T> allUsers(Class<T> userClass) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             return new AdminRepository(em).takeUsers(userClass);
@@ -18,7 +19,7 @@ public class AdminService {
         }
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -32,13 +33,13 @@ public class AdminService {
         }
     }
 
-    public void deleteUser(String email){
+    public void deleteUser(String email) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             em.getTransaction().begin();
             AdminRepository repo = new AdminRepository(em);
             User user = repo.findUserByEmail(email);
-            if (user != null){
+            if (user != null) {
                 repo.deleteUser(user);
             }
 

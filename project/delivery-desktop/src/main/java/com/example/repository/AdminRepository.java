@@ -1,6 +1,5 @@
 package com.example.repository;
 
-import com.example.config.HibernateConfig;
 import com.example.entity.order.OrderInfo;
 import com.example.entity.order.Orders;
 import com.example.entity.user.User;

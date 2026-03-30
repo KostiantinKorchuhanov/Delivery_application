@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.config.HibernateConfig;
 import com.example.entity.order.Orders;
 import com.example.repository.RestaurantOrderReporitory;
-import com.example.repository.RestaurantOwnerRepository;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -35,3 +34,4 @@ public class RestaurantOrderService {
         }
     }
 }
+

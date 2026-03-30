@@ -5,6 +5,7 @@ import com.example.entity.restaurant.Dish;
 import com.example.entity.restaurant.Restaurant;
 import com.example.repository.RestaurantRepository;
 import jakarta.persistence.EntityManager;
+
 import java.util.List;
 
 public class RestaurantService {
@@ -65,7 +66,7 @@ public class RestaurantService {
             em.getTransaction().begin();
 
             RestaurantRepository repo = new RestaurantRepository(em);
-            repo.deleteDish((long) dish.getDishId());
+            repo.deleteDish(dish.getDishId());
 
             em.getTransaction().commit();
         } catch (Exception e) {

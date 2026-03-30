@@ -9,3 +9,4 @@ public class EmailValidation {
         return email != null && pat.matcher(email).matches();
     }
 }
+

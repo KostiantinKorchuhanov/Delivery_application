@@ -4,7 +4,8 @@ import com.example.validation.subvalidation.EmailValidation;
 import javafx.scene.control.TextFormatter;
 
 public class UserFieldValidation {
-    private GeneralValidation generalValidation =  new GeneralValidation();
+    private final GeneralValidation generalValidation = new GeneralValidation();
+
     public boolean canBeLoggedIn(String email, String password) {
         return !email.isEmpty() && !password.isEmpty() && EmailValidation.validateEmail(email);
     }
@@ -15,21 +16,22 @@ public class UserFieldValidation {
                 && generalValidation.validatePhone(phone)
                 && generalValidation.validateSurname(surname)
                 && generalValidation.validateUsername(username)
-                && generalValidation.validatePasswordMatch(password,  repeatedPassword)
+                && generalValidation.validatePasswordMatch(password, repeatedPassword)
                 && userType != null;
     }
+
 
     public TextFormatter<String> getPhoneFormatter(int maxLength) {
         return new TextFormatter<>(change ->
         {
-            if (change.getControlNewText().length() > maxLength){
+            if (change.getControlNewText().length() > maxLength) {
                 return null;
             }
             return change;
         });
     }
 
-    public boolean canBeDeleted(String email){
+    public boolean canBeDeleted(String email) {
         return generalValidation.validateEmail(email);
     }
 }

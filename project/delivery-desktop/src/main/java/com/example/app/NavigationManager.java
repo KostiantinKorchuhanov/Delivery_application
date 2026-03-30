@@ -2,11 +2,10 @@ package com.example.app;
 
 import com.example.entity.restaurant.Dish;
 import com.example.entity.restaurant.Restaurant;
-import com.example.session.UserSession;
 import com.example.entity.user.Admin;
 import com.example.entity.user.RestaurantOwner;
 import com.example.entity.user.User;
-//import com.example.ui.controller.RestaurantOwnerAddDishController;
+import com.example.session.UserSession;
 import com.example.ui.controller.RestaurantDishController;
 import com.example.ui.controller.RestaurantOwnerRegisterController;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +24,7 @@ public class NavigationManager {
         String cssPath;
         String userType;
 
-        if (user instanceof Admin){
+        if (user instanceof Admin) {
             fxmlPath = "/ui/admin-main.fxml";
             cssPath = "/styles/admin-style.css";
             userType = "Admin";
@@ -33,8 +32,7 @@ public class NavigationManager {
             fxmlPath = "/ui/restaurant-owner-main.fxml";
             cssPath = "/styles/restaurant-owner-style.css";
             userType = "Restaurant Owner";
-        }
-        else {
+        } else {
             return;
         }
         Stage stage = new Stage();
@@ -136,3 +134,4 @@ public class NavigationManager {
         currentStage.close();
     }
 }
+

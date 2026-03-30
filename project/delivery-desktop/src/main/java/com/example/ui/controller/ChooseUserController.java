@@ -2,7 +2,7 @@ package com.example.ui.controller;
 
 
 import com.example.app.NavigationManager;
-import com.example.entity.user.*;
+import com.example.entity.user.User;
 import com.example.service.UserService;
 import com.example.ui.helper.AlertWindow;
 import com.example.ui.util.FadeAnimation;
@@ -15,23 +15,39 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class ChooseUserController {
-    private UserFieldValidation  userFieldValidation = new UserFieldValidation();
-    @FXML private VBox registerBox;
-    @FXML private VBox loginBox;
-    @FXML private TextField nameField;
-    @FXML private TextField surnameField;
-    @FXML private TextField usernameField;
-    @FXML private TextField emailFieldRegister;
-    @FXML private TextField emailFieldLogin;
-    @FXML private TextField phoneField;
-    @FXML private PasswordField passwordFieldRegister;
-    @FXML private PasswordField passwordFieldLogin;
-    @FXML private PasswordField repeatPasswordField;
-    @FXML private ToggleButton registerClicked;
-    @FXML private ToggleButton loginClicked;
-    @FXML private ComboBox<String> selectUser;
-    @FXML private Button registerButton;
-    @FXML private Button loginButton;
+    private final UserFieldValidation userFieldValidation = new UserFieldValidation();
+    @FXML
+    private VBox registerBox;
+    @FXML
+    private VBox loginBox;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField surnameField;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private TextField emailFieldRegister;
+    @FXML
+    private TextField emailFieldLogin;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private PasswordField passwordFieldRegister;
+    @FXML
+    private PasswordField passwordFieldLogin;
+    @FXML
+    private PasswordField repeatPasswordField;
+    @FXML
+    private ToggleButton registerClicked;
+    @FXML
+    private ToggleButton loginClicked;
+    @FXML
+    private ComboBox<String> selectUser;
+    @FXML
+    private Button registerButton;
+    @FXML
+    private Button loginButton;
 
     @FXML
     private void initialize() {
@@ -88,7 +104,7 @@ public class ChooseUserController {
     }
 
     @FXML
-    private void registerNewUser(){
+    private void registerNewUser() {
         try {
             String userType = selectUser.getValue();
             UserService userService = new UserService();
@@ -129,7 +145,7 @@ public class ChooseUserController {
         }
     }
 
-    private void clearRegistrationFields(){
+    private void clearRegistrationFields() {
         nameField.clear();
         surnameField.clear();
         usernameField.clear();
@@ -139,15 +155,8 @@ public class ChooseUserController {
         emailFieldRegister.clear();
     }
 
-    private void clearLoginFields(){
+    private void clearLoginFields() {
         emailFieldLogin.clear();
         passwordFieldLogin.clear();
-    }
-
-    // This is soooo stupid DO NOT FORGET TO DELETE THIS DISGUSTING THING
-    public void dirtyOperation(){
-        emailFieldLogin.setText("cute@cute.cute");
-        passwordFieldLogin.setText("1111");
-        loginButton.fire();
     }
 }

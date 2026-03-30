@@ -8,16 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class AdminDeleteController {
-    @FXML private TextField emailField;
-    @FXML private Button deleteButton;
-
+    @FXML
+    private TextField emailField;
+    @FXML
+    private Button deleteButton;
 
     @FXML
     private void deleteUser() {
         String email = emailField.getText();
 
         if (email == null || email.trim().isEmpty()) {
-            AlertWindow.showError("Email not found","Please enter a valid email address");
+            AlertWindow.showError("Email not found", "Please enter a valid email address");
             return;
         }
         boolean confirmed = AlertWindow.showConfirmation(

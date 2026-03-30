@@ -1,15 +1,14 @@
 package com.example.repository;
 
-import com.example.config.HibernateConfig;
 import com.example.entity.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 public class ValidationRepository {
     private final EntityManager entityManager;
+
     public ValidationRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

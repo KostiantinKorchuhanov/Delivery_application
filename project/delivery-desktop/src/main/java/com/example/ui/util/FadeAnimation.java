@@ -17,3 +17,4 @@ public class FadeAnimation {
         ft.play();
     }
 }
+

@@ -8,14 +8,17 @@ import com.example.validation.subvalidation.PasswordValidation;
 import org.example.deliveryweb.repository.CustomerRepository;
 import org.example.deliveryweb.repository.DriverRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class RegistrationController {
 
     private final CustomerRepository customerRepository;
     private final DriverRepository driverRepository;
-    private final GeneralValidation generalValidation =   new GeneralValidation();
+    private final GeneralValidation generalValidation = new GeneralValidation();
 
     public RegistrationController(CustomerRepository customerRepository, DriverRepository driverRepository) {
         this.customerRepository = customerRepository;
@@ -47,7 +50,7 @@ public class RegistrationController {
             driverRepository.save(driver);
         } else {
             Customer customer = new Customer();
-            fillData(customer, username, name, surname, email, phoneNumber,  PasswordValidation.hashPassword(passwordHash));
+            fillData(customer, username, name, surname, email, phoneNumber, PasswordValidation.hashPassword(passwordHash));
             customerRepository.save(customer);
         }
 
