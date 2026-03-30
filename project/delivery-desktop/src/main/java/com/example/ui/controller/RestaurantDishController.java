@@ -13,16 +13,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class RestaurantDishController {
-    @FXML private TextField dishNameField;
-    @FXML private TextField dishPriceField;
-    @FXML private TextArea dishDescriptionField;
-    @FXML private CheckBox dishAvialable;
-    @FXML private Button addDishButton;
-    @FXML private Button deleteDishButton;
+    @FXML
+    private TextField dishNameField;
+    @FXML
+    private TextField dishPriceField;
+    @FXML
+    private TextArea dishDescriptionField;
+    @FXML
+    private CheckBox dishAvialable;
+    @FXML
+    private Button addDishButton;
+    @FXML
+    private Button deleteDishButton;
+
 
     private Dish editingDish;
     private Restaurant currentRestaurant;
-    private RestaurantService restaurantService =  new RestaurantService();
+    private final RestaurantService restaurantService = new RestaurantService();
 
     @FXML
     private void initialize() {

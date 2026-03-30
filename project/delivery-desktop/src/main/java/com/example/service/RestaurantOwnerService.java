@@ -1,7 +1,6 @@
 package com.example.service;
 
 import com.example.config.HibernateConfig;
-import com.example.entity.restaurant.Dish;
 import com.example.entity.restaurant.Restaurant;
 import com.example.entity.user.RestaurantOwner;
 import com.example.repository.RestaurantOwnerRepository;

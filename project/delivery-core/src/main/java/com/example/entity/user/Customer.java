@@ -2,11 +2,12 @@ package com.example.entity.user;
 
 
 import jakarta.persistence.Entity;
-import lombok.Data;
-import lombok.Getter;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "customer_table")
 
 public class Customer extends User {
 
 }
+

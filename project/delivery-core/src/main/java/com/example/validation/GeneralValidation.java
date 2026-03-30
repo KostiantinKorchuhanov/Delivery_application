@@ -28,3 +28,4 @@ public class GeneralValidation {
         return username != null && !username.isEmpty();
     }
 }
+

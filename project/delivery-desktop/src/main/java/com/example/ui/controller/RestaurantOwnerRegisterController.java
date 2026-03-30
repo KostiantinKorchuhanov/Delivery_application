@@ -22,19 +22,28 @@ import java.io.IOException;
 import java.util.List;
 
 public class RestaurantOwnerRegisterController {
-    @FXML private TextField restaurantNameField;
-    @FXML private TextField restaurantAddressField;
-    @FXML private TextArea restaurantDescriptionField;
-    @FXML private Button addButton;
-    @FXML private Button deleteButton;
-    @FXML private AnchorPane foodPane;
-    @FXML private Button discardButton;
-    @FXML private FlowPane cardPane;
-    @FXML private TextField searchField;
+    @FXML
+    private TextField restaurantNameField;
+    @FXML
+    private TextField restaurantAddressField;
+    @FXML
+    private TextArea restaurantDescriptionField;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private AnchorPane foodPane;
+    @FXML
+    private Button discardButton;
+    @FXML
+    private FlowPane cardPane;
+    @FXML
+    private TextField searchField;
 
     private Restaurant editRestaurant;
     private Runnable runnable;
-    private RestaurantService restaurantService = new RestaurantService();
+    private final RestaurantService restaurantService = new RestaurantService();
 
     @FXML
     private void initialize() {
@@ -68,17 +77,17 @@ public class RestaurantOwnerRegisterController {
         loadFood();
     }
 
-    @FXML private void addNewRestaurant(){
-        if (editRestaurant == null){
+    @FXML
+    private void addNewRestaurant() {
+        if (editRestaurant == null) {
             deleteButton.setDisable(true);
-            RestaurantOwner  restaurantOwner = (RestaurantOwner) UserSession.getCurrentUser();
+            RestaurantOwner restaurantOwner = (RestaurantOwner) UserSession.getCurrentUser();
             String name = restaurantNameField.getText();
             String address = restaurantAddressField.getText();
             String description = restaurantDescriptionField.getText();
             RestaurantOwnerService restaurantOwnerService = new RestaurantOwnerService();
             restaurantOwnerService.saveNewRestaurant(name, description, address, restaurantOwner.getUserId());
-        }
-        else {
+        } else {
             deleteButton.setDisable(false);
             deleteButton.setOnAction(event -> {
                 deleteRestaurant();
@@ -88,14 +97,15 @@ public class RestaurantOwnerRegisterController {
             editRestaurant.setAddress(restaurantAddressField.getText());
             new RestaurantOwnerService().updateRestaurant(editRestaurant);
         }
-        if (runnable != null){
+        if (runnable != null) {
             runnable.run();
         }
         finishWork();
         NavigationManager.closeCurrentStage(addButton);
     }
 
-    @FXML private void deleteRestaurant(){
+    @FXML
+    private void deleteRestaurant() {
         if (editRestaurant != null) {
             boolean confirmed = AlertWindow.showConfirmation(
                     "Delete Restaurant",
@@ -110,8 +120,8 @@ public class RestaurantOwnerRegisterController {
         }
     }
 
-    private void finishWork(){
-        if (runnable != null){
+    private void finishWork() {
+        if (runnable != null) {
             runnable.run();
         }
     }

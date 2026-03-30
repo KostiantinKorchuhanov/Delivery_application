@@ -1,10 +1,7 @@
 package com.example.repository;
 
-import com.example.entity.restaurant.Dish;
 import com.example.entity.restaurant.Restaurant;
-import com.example.entity.user.User;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -58,3 +55,4 @@ public class RestaurantOwnerRepository {
         return entityManager.createQuery(cq).getResultList();
     }
 }
+

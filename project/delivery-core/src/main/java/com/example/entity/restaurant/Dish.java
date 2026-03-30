@@ -1,7 +1,5 @@
 package com.example.entity.restaurant;
 
-import com.example.entity.restaurant.Restaurant;
-import com.example.entity.user.RestaurantOwner;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +11,7 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "dish_table")
 
 public class Dish {
     @Id

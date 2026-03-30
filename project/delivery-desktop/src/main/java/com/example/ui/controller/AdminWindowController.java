@@ -13,9 +13,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
@@ -25,37 +27,63 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdminWindowController {
-    @FXML private Button customerButton;
-    @FXML private Button driverButton;
-    @FXML private Button restaurantButton;
-    @FXML private Button ordersButton;
-    @FXML private Button statisticsButton;
-    @FXML private Button homeButton;
-    @FXML private TextField searchField;
-    @FXML private Button addButton;
-    @FXML private Button deleteButton;
-    @FXML private Button logoutButton;
-    @FXML private VBox ordersTab;
-    @FXML private VBox statisticsTab;
-    @FXML private TableView<User> tableOfUsers;
-    @FXML private TableColumn<User, String> nameColumn;
-    @FXML private TableColumn<User, String> surnameColumn;
-    @FXML private TableColumn<User, String> emailColumn;
-    @FXML private TableColumn<User, String> phoneColumn;
-    @FXML private TableColumn<User, String> usernameColumn;
-    @FXML private TableView<Orders> tableOfOrders;
-    @FXML private TableColumn<Orders, String> orderCustomerColumn;
-    @FXML private TableColumn<Orders, String> orderRestaurantColumn;
-    @FXML private TableColumn<Orders, String> orderDetailsColumn;
-    @FXML private TableColumn<Orders, Double> orderPriceColumn;
-    @FXML private TableColumn<Orders, String> orderStatusColumn;
+    @FXML
+    private Button customerButton;
+    @FXML
+    private Button driverButton;
+    @FXML
+    private Button restaurantButton;
+    @FXML
+    private Button ordersButton;
+    @FXML
+    private Button statisticsButton;
+    @FXML
+    private Button homeButton;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button logoutButton;
+    @FXML
+    private VBox ordersTab;
+    @FXML
+    private VBox statisticsTab;
+    @FXML
+    private TableView<User> tableOfUsers;
+    @FXML
+    private TableColumn<User, String> nameColumn;
+    @FXML
+    private TableColumn<User, String> surnameColumn;
+    @FXML
+    private TableColumn<User, String> emailColumn;
+    @FXML
+    private TableColumn<User, String> phoneColumn;
+    @FXML
+    private TableColumn<User, String> usernameColumn;
+    @FXML
+    private TableView<Orders> tableOfOrders;
+    @FXML
+    private TableColumn<Orders, String> orderCustomerColumn;
+    @FXML
+    private TableColumn<Orders, String> orderRestaurantColumn;
+    @FXML
+    private TableColumn<Orders, String> orderDetailsColumn;
+    @FXML
+    private TableColumn<Orders, Double> orderPriceColumn;
+    @FXML
+    private TableColumn<Orders, String> orderStatusColumn;
+
 
     private final AdminService adminService = new AdminService();
 
     private final ObservableList<Orders> ordersMasterList = FXCollections.observableArrayList();
     private FilteredList<Orders> filteredOrders;
 
-    @FXML private void initialize(){
+    @FXML
+    private void initialize() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -109,11 +137,26 @@ public class AdminWindowController {
         phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         usernameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        nameColumn.setOnEditCommit(event -> { event.getRowValue().setName(event.getNewValue()); adminService.updateUser(event.getRowValue()); });
-        surnameColumn.setOnEditCommit(event -> { event.getRowValue().setSurname(event.getNewValue()); adminService.updateUser(event.getRowValue()); });
-        emailColumn.setOnEditCommit(event -> { event.getRowValue().setEmail(event.getNewValue()); adminService.updateUser(event.getRowValue()); });
-        phoneColumn.setOnEditCommit(event -> { event.getRowValue().setPhoneNumber(event.getNewValue()); adminService.updateUser(event.getRowValue()); });
-        usernameColumn.setOnEditCommit(event -> { event.getRowValue().setUsername(event.getNewValue()); adminService.updateUser(event.getRowValue()); });
+        nameColumn.setOnEditCommit(event -> {
+            event.getRowValue().setName(event.getNewValue());
+            adminService.updateUser(event.getRowValue());
+        });
+        surnameColumn.setOnEditCommit(event -> {
+            event.getRowValue().setSurname(event.getNewValue());
+            adminService.updateUser(event.getRowValue());
+        });
+        emailColumn.setOnEditCommit(event -> {
+            event.getRowValue().setEmail(event.getNewValue());
+            adminService.updateUser(event.getRowValue());
+        });
+        phoneColumn.setOnEditCommit(event -> {
+            event.getRowValue().setPhoneNumber(event.getNewValue());
+            adminService.updateUser(event.getRowValue());
+        });
+        usernameColumn.setOnEditCommit(event -> {
+            event.getRowValue().setUsername(event.getNewValue());
+            adminService.updateUser(event.getRowValue());
+        });
     }
 
     private void filterOrders(String searchText) {
@@ -127,13 +170,15 @@ public class AdminWindowController {
         });
     }
 
-    @FXML private void switchToHome(){
+    @FXML
+    private void switchToHome() {
         buttonManagement(true, false, false, false, false, false, false);
         searchUsers();
         FadeAnimation.fadeAnimation(tableOfUsers);
     }
 
-    @FXML private void searchUsers(){
+    @FXML
+    private void searchUsers() {
         List<User> result = adminService.searchUsers(searchField.getText());
         tableOfUsers.setItems(FXCollections.observableArrayList(result));
         tableOfUsers.setVisible(true);
@@ -141,17 +186,20 @@ public class AdminWindowController {
         addButton.setDisable(false);
     }
 
-    @FXML private void switchToCustomers(){
+    @FXML
+    private void switchToCustomers() {
         buttonManagement(false, true, false, false, false, false, true);
         loadUsersByClass(Customer.class);
     }
 
-    @FXML private void switchToDrivers(){
+    @FXML
+    private void switchToDrivers() {
         buttonManagement(false, false, true, false, false, false, true);
         loadUsersByClass(Driver.class);
     }
 
-    @FXML private void switchToRestaurant(){
+    @FXML
+    private void switchToRestaurant() {
         buttonManagement(false, false, false, true, false, false, true);
         loadUsersByClass(RestaurantOwner.class);
     }
@@ -164,7 +212,8 @@ public class AdminWindowController {
         addButton.setDisable(false);
     }
 
-    @FXML private void switchToOrders(){
+    @FXML
+    private void switchToOrders() {
         buttonManagement(false, false, false, false, true, false, false);
         addButton.setDisable(true);
         tableOfUsers.setVisible(false);
@@ -176,7 +225,8 @@ public class AdminWindowController {
         FadeAnimation.fadeAnimation(tableOfOrders);
     }
 
-    @FXML private void switchToStatistics(){
+    @FXML
+    private void switchToStatistics() {
         buttonManagement(false, false, false, false, false, true, true);
         FadeAnimation.fadeAnimation(statisticsTab);
         addButton.setDisable(true);
@@ -196,12 +246,24 @@ public class AdminWindowController {
         if (clearField) searchField.clear();
     }
 
-    @FXML private void openRegistration() throws IOException { NavigationManager.navigateToRegistration(); }
-    @FXML private void openDeletion() throws IOException { NavigationManager.navigateToDelete(); }
-    @FXML private void logoutUser() throws IOException {
+    @FXML
+    private void openRegistration() throws IOException {
+        NavigationManager.navigateToRegistration();
+    }
+
+    @FXML
+    private void openDeletion() throws IOException {
+        NavigationManager.navigateToDelete();
+    }
+
+    @FXML
+    private void logoutUser() throws IOException {
         UserSession.logout();
         NavigationManager.closeCurrentStage(logoutButton);
         NavigationManager.navigateToLogout();
     }
-    @FXML private void changeMenuVisibility(){}
+
+    @FXML
+    private void changeMenuVisibility() {
+    }
 }

@@ -17,7 +17,7 @@
     -fx-border-width: 1;
     -fx-border-radius: 20;
     -fx-padding: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0, 0, 5);
 }
 
 .switch-button {
@@ -113,7 +113,7 @@
     -fx-background-radius: 10;
 }
 
-.vbox{
+.vbox {
     -fx-background-color: rgba(40, 40, 40, 0.4);
     -fx-background-radius: 20;
     -fx-border-color: rgba(255, 255, 255, 0.1);
@@ -152,6 +152,7 @@
     -fx-border-color: rgba(255, 80, 80, 0.3);
     -fx-border-radius: 10;
 }
+
 #deleteButton:hover {
     -fx-background-color: #ff5f5f;
 }
@@ -171,7 +172,7 @@
     -fx-border-color: #b89e8b;
 }
 
-.logout-button{
+.logout-button {
     -fx-background-color: rgba(224, 220, 220, 0.6);
     -fx-text-fill: #3f0b0b;
     -fx-background-radius: 12;
@@ -186,6 +187,6 @@
     -fx-scale-y: 1.05;
 }
 
-.logout-button:pressed{
+.logout-button:pressed {
     -fx-background-color: rgba(171, 76, 76, 0.8);
 }

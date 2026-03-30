@@ -4,7 +4,7 @@
     -fx-background-color: white;
 }
 
-.anchor-pane{
+.anchor-pane {
     -fx-background-image: url("../images/restaurant.jpg");
     -fx-background-size: cover;
     -fx-background-position: center center;
@@ -36,7 +36,7 @@
     -fx-scale-y: 1.05;
 }
 
-.nav-button:pressed{
+.nav-button:pressed {
     -fx-background-color: rgba(200, 200, 200, 0.8);
 }
 
@@ -87,7 +87,7 @@
     -fx-cursor: hand;
 }
 
-.restaurant-card:hover{
+.restaurant-card:hover {
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-background-color: rgba(63, 63, 63, 0.78);
@@ -100,12 +100,12 @@
     -fx-fill: #79a0c3;
 }
 
-.restaurant-description{
+.restaurant-description {
     -fx-font-size: 16;
     -fx-fill: #a5b7c5;
 }
 
-.restaurant-address{
+.restaurant-address {
     -fx-font-size: 16;
     -fx-fill: #bcaca0;
     -fx-font-weight: cursive;
@@ -179,7 +179,7 @@
     -fx-text-fill: black;
 }
 
-.logout-button{
+.logout-button {
     -fx-background-color: rgba(224, 220, 220, 0.6);
     -fx-text-fill: #3f0b0b;
     -fx-background-radius: 12;
@@ -194,6 +194,6 @@
     -fx-scale-y: 1.05;
 }
 
-.logout-button:pressed{
+.logout-button:pressed {
     -fx-background-color: rgba(171, 76, 76, 0.8);
 }
