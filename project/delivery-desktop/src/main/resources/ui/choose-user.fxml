@@ -124,7 +124,7 @@
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
                                             <String fx:id="restaurantSelected" fx:value="Restaurant"/>
-                                            <String fx:id="adminSelected" fx:value="Admin"/>
+                                            <!--                                            <String fx:id="adminSelected" fx:value="Admin"/>-->
                                         </FXCollections>
                                     </items>
                                     <VBox.margin>

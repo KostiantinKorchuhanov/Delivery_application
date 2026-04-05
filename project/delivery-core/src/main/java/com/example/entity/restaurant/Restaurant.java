@@ -7,10 +7,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Represents a Restaurant entity within the system.
+ * This class stores restaurant details and maintains relationships with its
+ * owner and its menu of dishes.
+ *
+ * @author Kostiantyn Korchuhanov
+ * @version 1.0
+ * @see com.example.entity.user.RestaurantOwner
+ * @see Dish
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,6 +36,11 @@ public class Restaurant {
     @ManyToOne
     @JoinColumn(name = "ownerId")
     private RestaurantOwner owner;
+
+    /**
+     * The list of dishes available at this restaurant.
+     * Mapped by the "restaurant" field in the {@link Dish} entity.
+     */
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Dish> menu;
 }

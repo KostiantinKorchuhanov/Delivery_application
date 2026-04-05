@@ -133,5 +133,18 @@ public class NavigationManager {
         Stage currentStage = (Stage) node.getScene().getWindow();
         currentStage.close();
     }
+
+    public static void navigateToOrderCreation() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/ui/admin-order.fxml"));
+        Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(NavigationManager.class.getResource("/styles/add-order.css").toExternalForm());
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.setMaximized(true);
+        stage.setTitle("Add a new order");
+        stage.showAndWait();
+    }
 }
 

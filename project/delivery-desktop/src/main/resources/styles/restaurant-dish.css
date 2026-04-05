@@ -1,5 +1,5 @@
 .anchor-pane {
-    -fx-background-image: url("../images/restaurant.jpg");
+    -fx-background-image: url("../images/admin_background.jpg");
     -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 50, 0, 0, 0);

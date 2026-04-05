@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Driver Page</title></head>
+<body>
+<h1>Driver Dashboard</h1>
+<h3>Available Orders</h3>
+<ul>
+    <li th:each="order : ${availableOrders}">
+        Order #<span th:text="${order.orderId}"></span> -
+        Total: $<span th:text="${order.orderTotalPrice}"></span> -
+        Restaurant: $<span th:text="${order.restaurant}"></span> -
+        Status: <span th:text="${order.status}"></span>
+        <button>Accept</button>
+    </li>
+</ul>
+<div th:if="${#lists.isEmpty(availableOrders)}">
+    <p>No pending orders available.</p>
+</div>
+<br>
+<a href="/login">Logout</a>
+</body>
+</html>

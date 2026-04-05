@@ -1,9 +1,7 @@
 package com.example.service;
 
 import com.example.config.HibernateConfig;
-import com.example.entity.user.Admin;
-import com.example.entity.user.RestaurantOwner;
-import com.example.entity.user.User;
+import com.example.entity.user.*;
 import com.example.repository.LoginRepository;
 import com.example.repository.RegisterRepository;
 import com.example.repository.ValidationRepository;
@@ -11,10 +9,31 @@ import com.example.ui.helper.AlertWindow;
 import com.example.validation.subvalidation.PasswordValidation;
 import jakarta.persistence.EntityManager;
 
+/**
+ * Service class managing user lifecycle operations such as registration and authentication.
+ * Handles input validation, password hashing, and user type instantiation.
+ *
+ * @author Kostiantyn Korchuhanov
+ * @version 1.0
+ * <p>
+ * Note: I trust this code as much as I trust a "free Wi-Fi" sign in a dark alley(which basically was written by me)
+ */
 public class UserService {
 
-    public boolean registerUser(String name, String surname, String username, String email,
-                                String password, String confirmPassword, String phoneNumber, String userType) {
+    /**
+     * Registers a new user with validation for unique identifiers and password matching.
+     *
+     * @param name            user's first name
+     * @param surname         user's last name
+     * @param username        chosen unique username
+     * @param email           unique email address
+     * @param password        plain text password
+     * @param confirmPassword password confirmation for matching
+     * @param phoneNumber     contact phone number
+     * @param userType        string representing the role (Driver, Customer, etc.)
+     * @return true if registration succeeded, false otherwise
+     */
+    public boolean registerUser(String name, String surname, String username, String email, String password, String confirmPassword, String phoneNumber, String userType) {
         if (!password.equals(confirmPassword)) {
             AlertWindow.showError("Registration Error", "Passwords do not match!");
             return false;
@@ -53,12 +72,18 @@ public class UserService {
         }
     }
 
+    /**
+     * Authenticates a user by checking credentials against the database.
+     *
+     * @param email    email or username identifier
+     * @param password plain text password to verify
+     * @return the authenticated {@link User} object, or null if credentials fail
+     */
     public User loginUser(String email, String password) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             LoginRepository loginRepo = new LoginRepository(em);
-            User user = loginRepo.findUserByEmail(email);
-
+            User user = loginRepo.findByEmailOrUsername(email);
             if (user != null && PasswordValidation.validatePassword(user.getPasswordHash(), password)) {
                 System.out.println("Login successful");
                 return user;
@@ -70,12 +95,19 @@ public class UserService {
         }
     }
 
+    /**
+     * Factory method to create specific User implementations based on role.
+     *
+     * @param userType string identifier of the user role
+     * @return a new instance of a {@link User} subclass, or null if type is invalid
+     */
     private User createUserByType(String userType) {
         return switch (userType) {
+            case "Driver" -> new Driver();
+            case "Customer" -> new Customer();
             case "Restaurant" -> new RestaurantOwner();
             case "Admin" -> new Admin();
             default -> null;
         };
     }
 }
-

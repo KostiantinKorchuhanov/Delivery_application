@@ -7,13 +7,16 @@ import com.example.entity.user.Driver;
 import com.example.entity.user.RestaurantOwner;
 import com.example.entity.user.User;
 import com.example.service.AdminService;
+import com.example.service.RestaurantOrderService;
 import com.example.session.UserSession;
+import com.example.ui.helper.AlertWindow;
 import com.example.ui.util.FadeAnimation;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,12 +24,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdminWindowController {
+    private final AdminService adminService = new AdminService();
+    private final RestaurantOrderService restaurantOrderService = new RestaurantOrderService();
+    private final ObservableList<Orders> ordersMasterList = FXCollections.observableArrayList();
+    private boolean registerUser = true;
+    private boolean deleteUser = true;
     @FXML
     private Button customerButton;
     @FXML
@@ -75,11 +86,8 @@ public class AdminWindowController {
     private TableColumn<Orders, Double> orderPriceColumn;
     @FXML
     private TableColumn<Orders, String> orderStatusColumn;
-
-
-    private final AdminService adminService = new AdminService();
-
-    private final ObservableList<Orders> ordersMasterList = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<Orders, String> orderDriverColumn;
     private FilteredList<Orders> filteredOrders;
 
     @FXML
@@ -98,13 +106,18 @@ public class AdminWindowController {
             User c = d.getValue().getCustomer();
             return new SimpleStringProperty(c.getName() + " " + c.getSurname());
         });
-        orderRestaurantColumn.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue().getRestaurant().getRestaurantName()));
+        orderRestaurantColumn.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getRestaurant().getRestaurantName()));
         orderDetailsColumn.setCellValueFactory(d -> {
-            String summary = d.getValue().getOrderItemList().stream()
-                    .map(item -> item.getDish().getDishName() + " x" + item.getQuantity())
-                    .collect(Collectors.joining(", "));
+            String summary = d.getValue().getOrderItemList().stream().map(item -> item.getDish().getDishName() + " x" + item.getQuantity()).collect(Collectors.joining(", "));
             return new SimpleStringProperty(summary);
+        });
+        orderDriverColumn.setCellValueFactory(cellData -> {
+            User driver = cellData.getValue().getDriver();
+            if (driver != null) {
+                return new SimpleStringProperty(driver.getName() + " " + driver.getSurname());
+            } else {
+                return new SimpleStringProperty("Not Assigned");
+            }
         });
 
         filteredOrders = new FilteredList<>(ordersMasterList, p -> true);
@@ -115,7 +128,7 @@ public class AdminWindowController {
         orderStatusColumn.setOnEditCommit(event -> {
             Orders order = event.getRowValue();
             order.setStatus(event.getNewValue());
-            adminService.updateOrder(order);
+            restaurantOrderService.updateOrder(order);
         });
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -163,18 +176,25 @@ public class AdminWindowController {
         filteredOrders.setPredicate(order -> {
             if (searchText == null || searchText.isEmpty()) return true;
             String lower = searchText.toLowerCase();
-            return order.getCustomer().getName().toLowerCase().contains(lower) ||
-                    order.getCustomer().getSurname().toLowerCase().contains(lower) ||
-                    order.getRestaurant().getRestaurantName().toLowerCase().contains(lower) ||
-                    order.getStatus().toLowerCase().contains(lower);
+            boolean matchesCustomer = order.getCustomer().getName().toLowerCase().contains(lower) || order.getCustomer().getSurname().toLowerCase().contains(lower);
+            boolean matchesRestaurant = order.getRestaurant().getRestaurantName().toLowerCase().contains(lower);
+            boolean matchesStatus = order.getStatus().toLowerCase().contains(lower);
+            boolean matchesDriver = false;
+            if (order.getDriver() != null) {
+                matchesDriver = order.getDriver().getName().toLowerCase().contains(lower) || order.getDriver().getSurname().toLowerCase().contains(lower);
+            }
+            return matchesCustomer || matchesRestaurant || matchesStatus || matchesDriver;
         });
     }
 
     @FXML
     private void switchToHome() {
+        registerUser = true;
         buttonManagement(true, false, false, false, false, false, false);
         searchUsers();
         FadeAnimation.fadeAnimation(tableOfUsers);
+        addButton.setText("Add User");
+        deleteUser = true;
     }
 
     @FXML
@@ -188,20 +208,29 @@ public class AdminWindowController {
 
     @FXML
     private void switchToCustomers() {
+        registerUser = true;
         buttonManagement(false, true, false, false, false, false, true);
         loadUsersByClass(Customer.class);
+        addButton.setText("Add User");
+        deleteUser = true;
     }
 
     @FXML
     private void switchToDrivers() {
+        registerUser = true;
         buttonManagement(false, false, true, false, false, false, true);
         loadUsersByClass(Driver.class);
+        addButton.setText("Add User");
+        deleteUser = true;
     }
 
     @FXML
     private void switchToRestaurant() {
+        registerUser = true;
         buttonManagement(false, false, false, true, false, false, true);
         loadUsersByClass(RestaurantOwner.class);
+        addButton.setText("Add User");
+        deleteUser = true;
     }
 
     private void loadUsersByClass(Class<? extends User> clazz) {
@@ -209,17 +238,19 @@ public class AdminWindowController {
         tableOfUsers.setItems(FXCollections.observableArrayList(adminService.allUsers(clazz)));
         tableOfUsers.setVisible(true);
         tableOfOrders.setVisible(false);
-        addButton.setDisable(false);
+        addButton.setText("Add User");
     }
 
     @FXML
     private void switchToOrders() {
+        registerUser = false;
         buttonManagement(false, false, false, false, true, false, false);
-        addButton.setDisable(true);
+        addButton.setText("Add Order");
         tableOfUsers.setVisible(false);
         statisticsTab.setVisible(false);
-        ordersMasterList.setAll(adminService.getAllOrders());
+        ordersMasterList.setAll(restaurantOrderService.getAllOrders());
         filterOrders(searchField.getText());
+        deleteUser = false;
 
         tableOfOrders.setVisible(true);
         FadeAnimation.fadeAnimation(tableOfOrders);
@@ -230,6 +261,16 @@ public class AdminWindowController {
         buttonManagement(false, false, false, false, false, true, true);
         FadeAnimation.fadeAnimation(statisticsTab);
         addButton.setDisable(true);
+        String video = getClass().getResource("/rickroll.mp4").toExternalForm();
+        Media media = new Media(video);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaView mediaView = new MediaView(mediaPlayer);
+        mediaView.setFitWidth(600);
+        mediaView.setPreserveRatio(true);
+        statisticsTab.getChildren().clear();
+        statisticsTab.getChildren().add(mediaView);
+        statisticsTab.setAlignment(Pos.CENTER);
+        mediaPlayer.play();
     }
 
     private void buttonManagement(boolean home, boolean customer, boolean driver, boolean restaurant, boolean orders, boolean statistics, boolean clearField) {
@@ -239,21 +280,27 @@ public class AdminWindowController {
         restaurantButton.setDisable(restaurant);
         ordersButton.setDisable(orders);
         statisticsButton.setDisable(statistics);
-
         ordersTab.setVisible(orders);
         statisticsTab.setVisible(statistics);
-
         if (clearField) searchField.clear();
     }
 
     @FXML
     private void openRegistration() throws IOException {
-        NavigationManager.navigateToRegistration();
+        if (registerUser) {
+            NavigationManager.navigateToRegistration();
+        } else {
+            NavigationManager.navigateToOrderCreation();
+        }
     }
 
     @FXML
     private void openDeletion() throws IOException {
-        NavigationManager.navigateToDelete();
+        if (deleteUser) {
+            NavigationManager.navigateToDelete();
+        } else {
+            handleDeleteOrder();
+        }
     }
 
     @FXML
@@ -261,6 +308,25 @@ public class AdminWindowController {
         UserSession.logout();
         NavigationManager.closeCurrentStage(logoutButton);
         NavigationManager.navigateToLogout();
+    }
+
+    @FXML
+    private void handleDeleteOrder() {
+        Orders selectedOrder = tableOfOrders.getSelectionModel().getSelectedItem();
+        if (selectedOrder == null) {
+            AlertWindow.showError("Selection Error", "Please select an order to delete.");
+            return;
+        }
+        boolean confirm = AlertWindow.showConfirmation("Delete Order", "Are you sure you want to delete Order #" + selectedOrder.getOrderId() + "?");
+        if (confirm) {
+            try {
+                restaurantOrderService.deleteOrder(selectedOrder);
+                ordersMasterList.remove(selectedOrder);
+                AlertWindow.showInformation("Success", "Order deleted successfully.");
+            } catch (Exception e) {
+                AlertWindow.showError("Database Error", "Could not delete order.");
+            }
+        }
     }
 
     @FXML

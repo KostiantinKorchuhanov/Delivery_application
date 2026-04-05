@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class RegistrationController {
 
@@ -32,33 +31,35 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String registerUser(
-            @RequestParam String role,
-            @RequestParam String username,
-            @RequestParam String name,
-            @RequestParam String surname,
-            @RequestParam String email,
-            @RequestParam String phoneNumber,
-            @RequestParam String passwordHash,
-            @RequestParam String passwordRepeat) {
+            @RequestParam("role") String role,
+            @RequestParam("username") String username,
+            @RequestParam("name") String name,
+            @RequestParam("surname") String surname,
+            @RequestParam("email") String email,
+            @RequestParam("phoneNumber") String phoneNumber,
+            @RequestParam("passwordHash") String passwordHash,
+            @RequestParam("passwordRepeat") String passwordRepeat) {
 
         if (!generalValidation.validatePasswordMatch(passwordHash, passwordRepeat)) {
             return "registration";
         }
+
+        String hashed = PasswordValidation.hashPassword(passwordHash);
+
         if ("driver".equalsIgnoreCase(role)) {
             Driver driver = new Driver();
-            fillData(driver, username, name, surname, email, phoneNumber, PasswordValidation.hashPassword(passwordHash));
+            fillData(driver, username, name, surname, email, phoneNumber, hashed);
             driverRepository.save(driver);
         } else {
             Customer customer = new Customer();
-            fillData(customer, username, name, surname, email, phoneNumber, PasswordValidation.hashPassword(passwordHash));
+            fillData(customer, username, name, surname, email, phoneNumber, hashed);
             customerRepository.save(customer);
         }
 
-        return "redirect:/register?success";
+        return "redirect:/login?success";
     }
 
-    private void fillData(User user, String username, String name, String surname,
-                          String email, String phoneNumber, String passwordHash) {
+    private void fillData(User user, String username, String name, String surname, String email, String phoneNumber, String passwordHash) {
         user.setUsername(username);
         user.setName(name);
         user.setSurname(surname);

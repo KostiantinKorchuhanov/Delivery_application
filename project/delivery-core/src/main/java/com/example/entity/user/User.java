@@ -7,7 +7,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+/**
+ * Abstract base class representing a User in the system.
+ * Uses the JOINED inheritance strategy to persist different user roles in separate tables.
+ *
+ * @author Kostiantyn Korchuhanov
+ * @version 1.0
+ * <p>
+ * Since no one is actually going to read this anyway (because why would you?),
+ * I’ve decided to sprinkle some jokes throughout my files.
+ * That way, if some poor soul actually ends up reading this, at least you won't die of boredom
+ */
 @Getter
 @Setter
 @NoArgsConstructor

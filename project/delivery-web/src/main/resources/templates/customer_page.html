@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Customer Page</title></head>
+<body>
+<h1>Menu</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dish : ${dishes}">
+        <td th:text="${dish.dishName}"></td>
+        <td th:text="${dish.description}"></td>
+        <td th:text="${dish.restaurant}"></td>
+        <td th:text="${dish.price}"></td>
+        <td>
+            <form th:action="@{/customer/cart/add}" method="post">
+                <input type="hidden" name="dishId" th:value="${dish.dishId}">
+                <button type="submit">Add to cart</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Your Current Cart Items</h2>
+<table border="1" th:if="${!cart.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${cart}">
+        <td th:text="${item.dishName}"></td>
+        <td th:text="${item.price}"></td>
+        <td>
+            <form th:action="@{/customer/cart/remove}" method="post">
+                <input type="hidden" name="dishId" th:value="${item.dishId}">
+                <button type="submit">Remove</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${cart.isEmpty()}">
+    <p>Cart is empty.</p>
+</div>
+
+<hr>
+<h1>Your Cart</h1>
+<div>
+    <p>Items in cart: <span th:text="${cartSize}">0</span></p>
+    <form th:action="@{/customer/order/checkout}" method="post" th:if="${cartSize > 0}">
+        <button type="submit">Checkout</button>
+    </form>
+</div>
+
+<div th:if="${param.ordered}">
+    <p style="color: green;">Order placed successfully!</p>
+</div>
+<br>
+<a href="/login">Logout</a>
+</body>
+</html>

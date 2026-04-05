@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox spacing="15.0" prefWidth="800.0" prefHeight="600.0" xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ui.controller.AdminOrderController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <Label text="Create New Order (Admin Panel)">
+        <font>
+            <Font name="System Bold" size="20.0"/>
+        </font>
+    </Label>
+
+    <HBox spacing="20.0">
+        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+            <Label text="Select Customer"/>
+            <ComboBox fx:id="userCombo" prefWidth="300.0" promptText="Choose customer..."/>
+
+            <Label text="Select Restaurant"/>
+            <ComboBox fx:id="restaurantCombo" prefWidth="300.0" promptText="Choose restaurant..."/>
+
+            <Label text="Select Dishes from Menu"/>
+            <TableView fx:id="menuTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colDishName" text="Name" prefWidth="150.0"/>
+                    <TableColumn fx:id="colDishPrice" text="Price (EUR)" prefWidth="100.0"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Qty:"/>
+                <TextField fx:id="quantityField" prefWidth="60.0" text="1"/>
+                <Button text="Add to Basket" onAction="#handleAddToBasket"
+                        style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+
+        <VBox spacing="10.0" prefWidth="300.0">
+            <Label text="Order Basket:">
+                <font>
+                    <Font name="System Bold" size="14.0"/>
+                </font>
+            </Label>
+            <ListView fx:id="basketListView" VBox.vgrow="ALWAYS"/>
+
+            <Separator/>
+
+            <Label fx:id="totalLabel" text="Total Sum: 0.0 EUR">
+                <font>
+                    <Font name="System Bold" size="16.0"/>
+                </font>
+            </Label>
+
+            <Button text="Confirm and Save Order" onAction="#handleConfirmOrder"
+                    maxWidth="Infinity" prefHeight="40.0"
+                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+</VBox>

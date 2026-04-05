@@ -59,6 +59,7 @@ public class RestaurantOwnerController {
     private final ObservableList<Orders> ordersData = FXCollections.observableArrayList();
     private FilteredList<Orders> filteredOrders;
     private int currentOwnerId;
+    private boolean restaurantTab = true;
 
     @FXML
     private void initialize() {
@@ -136,6 +137,7 @@ public class RestaurantOwnerController {
         orderButton.setDisable(true);
         searchField.clear();
         loadData();
+        restaurantTab = false;
     }
 
     private void loadData() {
@@ -159,6 +161,7 @@ public class RestaurantOwnerController {
         orderButton.setDisable(false);
         searchField.clear();
         renderRestaurants(restaurantOwnerService.findAllRestaurants(currentOwnerId));
+        restaurantTab = true;
     }
 
     private void renderRestaurants(List<Restaurant> restaurants) {
@@ -191,8 +194,12 @@ public class RestaurantOwnerController {
 
     @FXML
     private void addRestaurant() throws IOException {
-        NavigationManager.navigateToNewRestaurant();
-        openRestaurants();
+        if (restaurantTab) {
+            NavigationManager.navigateToNewRestaurant();
+            openRestaurants();
+        } else {
+            NavigationManager.navigateToOrderCreation();
+        }
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package com.example.app;
 
+import com.example.config.HibernateConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +19,12 @@ public class Main extends Application {
         enterStage.setMinWidth(800);
         enterStage.setMinHeight(650);
         enterStage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        HibernateConfig.shutdown();
+        super.stop();
     }
 
     public static void main(String[] args) {
