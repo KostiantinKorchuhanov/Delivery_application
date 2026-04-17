@@ -40,7 +40,12 @@ public class RegistrationController {
             @RequestParam("passwordHash") String passwordHash,
             @RequestParam("passwordRepeat") String passwordRepeat) {
 
-        if (!generalValidation.validatePasswordMatch(passwordHash, passwordRepeat)) {
+        if (!generalValidation.validatePasswordMatch(passwordHash, passwordRepeat)
+                || !generalValidation.validatePhone(phoneNumber)
+                || !generalValidation.validateEmail(email)
+                || !generalValidation.validateUsername(username)
+                || !generalValidation.validateName(name)
+                || !generalValidation.validateSurname(surname)) {
             return "registration";
         }
 

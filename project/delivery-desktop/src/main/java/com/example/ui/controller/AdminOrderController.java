@@ -48,8 +48,34 @@ public class AdminOrderController {
     @FXML
     private void initialize() {
         User currentUser = UserSession.getCurrentUser();
+
+        userCombo.setConverter(new javafx.util.StringConverter<Customer>() {
+            @Override
+            public String toString(Customer customer) {
+                return (customer == null) ? "" : customer.getName() + " " + customer.getSurname();
+            }
+
+            @Override
+            public Customer fromString(String string) {
+                return null;
+            }
+        });
+
+        restaurantCombo.setConverter(new javafx.util.StringConverter<Restaurant>() {
+            @Override
+            public String toString(Restaurant restaurant) {
+                return (restaurant == null) ? "" : restaurant.getRestaurantName();
+            }
+
+            @Override
+            public Restaurant fromString(String string) {
+                return null;
+            }
+        });
+
         List<Customer> customers = adminService.allUsers(Customer.class);
         userCombo.setItems(FXCollections.observableArrayList(customers));
+
         List<Restaurant> restaurants;
         if (currentUser instanceof RestaurantOwner) {
             restaurants = ownerService.findAllRestaurants(currentUser.getUserId());
@@ -57,6 +83,7 @@ public class AdminOrderController {
             restaurants = adminService.getAllRestaurants();
         }
         restaurantCombo.setItems(FXCollections.observableArrayList(restaurants));
+
         restaurantCombo.setOnAction(e -> {
             Restaurant selected = restaurantCombo.getValue();
             if (selected != null) {
@@ -67,8 +94,19 @@ public class AdminOrderController {
                 updateBasketUI();
             }
         });
+
         colDishName.setCellValueFactory(new PropertyValueFactory<>("dishName"));
-        colDishPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colDishPrice.setCellValueFactory(cellData -> {
+            double activePrice = cellData.getValue().getActivePrice();
+            return new javafx.beans.property.SimpleObjectProperty<>(activePrice);
+        });
+
+        quantityField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("([1-9][0-9]*)?")) {
+                return change;
+            }
+            return null;
+        }));
     }
 
     @FXML
@@ -77,23 +115,24 @@ public class AdminOrderController {
         String qtyText = quantityField.getText();
 
         if (selectedDish == null || qtyText.isEmpty()) {
-            AlertWindow.showError("Selection Error", "Please select a dish and enter quantity.");
+            AlertWindow.showError("Selection Error", "Please select a dish and enter a valid quantity.");
             return;
         }
 
-        try {
-            int qty = Integer.parseInt(qtyText);
-            OrderInfo item = new OrderInfo();
-            item.setDish(selectedDish);
-            item.setQuantity(qty);
-            item.setPrice(selectedDish.getPrice());
-
-            currentOrder.addOrderItem(item);
-            updateBasketUI();
-            quantityField.clear();
-        } catch (NumberFormatException e) {
-            AlertWindow.showError("Format Error", "Quantity must be a number.");
+        int qty = Integer.parseInt(qtyText);
+        if (qty <= 0) {
+            AlertWindow.showError("Input Error", "Quantity must be greater than 0.");
+            return;
         }
+
+        OrderInfo item = new OrderInfo();
+        item.setDish(selectedDish);
+        item.setQuantity(qty);
+        item.setPrice(selectedDish.getActivePrice());
+
+        currentOrder.addOrderItem(item);
+        updateBasketUI();
+        quantityField.clear();
     }
 
     private void updateBasketUI() {

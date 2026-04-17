@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results | FoodApp</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body style="margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div style="flex: 1;">
+    <div class="glass-panel">
+        <h1 style="color: #2c3e50; margin-bottom: 5px;">Search Results</h1>
+        <p style="color: #777; margin-bottom: 30px;">Showing results for: <strong style="color: #4a6a8a;"
+                                                                                  th:text="'«' + ${query} + '»'"></strong>
+        </p>
+
+        <div th:if="${not #lists.isEmpty(restaurants)}">
+            <h3 class="search-section-title">Found Restaurants</h3>
+            <div class="restaurant-grid">
+                <div class="restaurant-card" th:each="r : ${restaurants}">
+                    <div>
+                        <div class="restaurant-title" th:text="${r.restaurantName}">Name</div>
+                        <p style="color: #666; font-size: 0.9em;">Explore the menu of this restaurant.</p>
+                    </div>
+                    <a class="btn-main" th:href="@{/customer/restaurant/{id}(id=${r.restaurantId})}">Go to Menu</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px;" th:if="${not #lists.isEmpty(dishes)}">
+            <h3 class="search-section-title">Found Dishes</h3>
+            <div class="result-list">
+                <div class="dish-item" th:each="dish : ${dishes}">
+                    <div class="dish-info">
+                        <h3 th:text="${dish.dishName}">Dish Name</h3>
+                        <p>
+                            From: <a style="color: #79a0c3; text-decoration: none; font-weight: bold;"
+                                     th:href="@{/customer/restaurant/{id}(id=${dish.restaurant?.restaurantId})}"
+                                     th:text="${dish.restaurant?.restaurantName}">Restaurant</a>
+                        </p>
+                    </div>
+                    <div class="dish-price-action">
+                        <span class="price-tag" th:text="${dish.price + ' $'}">0.00 $</span>
+                        <form method="post" th:action="@{/customer/cart/add}">
+                            <input name="dishId" th:value="${dish.dishId}" type="hidden">
+                            <input name="quantity" type="hidden" value="1">
+                            <button class="btn-main" style="padding: 10px 20px;" type="submit">Add to cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 60px 20px; text-align: center; background: rgba(0,0,0,0.02); border-radius: 20px;"
+             th:if="${#lists.isEmpty(restaurants) and #lists.isEmpty(dishes)}">
+            <div style="font-size: 3em; margin-bottom: 20px;">🔍</div>
+            <h3 style="color: #333;">No results found</h3>
+            <p style="color: #999;">Try searching for something else, like "Pizza" or "Burger".</p>
+            <a class="btn-main" href="/customer/restaurants"
+               style="display: inline-block; margin-top: 20px; text-decoration: none;">Back to all restaurants</a>
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed #ddd;">
+            <a href="/customer/restaurants" style="text-decoration: none; color: #79a0c3;">&larr; Back to full list</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart | FoodApp</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body style="margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div style="flex: 1;">
+    <div class="glass-panel" style="max-width: 800px;">
+        <h1 style="color: #2c3e50; border-bottom: 2px solid #79a0c3; padding-bottom: 10px; margin-bottom: 25px;">Your
+            Cart</h1>
+
+        <div style="text-align: center; padding: 50px 0;" th:if="${groupedCart == null || groupedCart.isEmpty()}">
+            <div style="font-size: 4em; margin-bottom: 20px;">🛒</div>
+            <p style="color: #999; font-size: 1.2em;">Your cart is empty.</p>
+            <a class="btn-main" href="/customer/restaurants"
+               style="display: inline-block; text-decoration: none; margin-top: 15px;">Go to Restaurants</a>
+        </div>
+
+        <div th:if="${groupedCart != null && !groupedCart.isEmpty()}">
+            <div class="cart-item"
+                 style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #eee;"
+                 th:each="entry : ${groupedCart}">
+
+                <div class="cart-item-info">
+                    <h4 style="margin: 0; color: #2c3e50;" th:text="${entry.key.dishName}">Dish Name</h4>
+                    <span style="font-size: 0.85em; color: #888;" th:text="${entry.key.restaurant.restaurantName}">Restaurant Name</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 30px;">
+                    <div style="background: #f0f4f8; padding: 5px 12px; border-radius: 20px; font-weight: bold; color: #79a0c3;">
+                        <span th:text="'x' + ${entry.value}">x1</span>
+                    </div>
+
+                    <strong style="color: #4a6a8a; min-width: 60px; text-align: right;"
+                            th:text="${#numbers.formatDecimal(entry.key.activePrice * entry.value, 1, 2) + ' $'}">
+                        0.00 $
+                    </strong>
+
+                    <form method="post" style="margin: 0;" th:action="@{/customer/cart/remove}">
+                        <input name="dishId" th:value="${entry.key.dishId}" type="hidden">
+                        <button style="background: none; border: none; color: #fa5252; cursor: pointer; font-weight: bold; font-size: 1.2em;"
+                                title="Remove all units of this dish"
+                                type="submit">
+                            &times;
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="checkout-panel"
+                 style="background: #fdfdfd; padding: 25px; border-radius: 15px; border: 1px solid #79a0c3; margin-top: 20px;">
+                <h3 style="margin-top: 0; color: #2c3e50;">Order Summary</h3>
+                <p style="color: #666;">Total Items in Cart: <strong th:text="${cartSize}">0</strong></p>
+
+                <div class="bonus-badge"
+                     style="background: #fff9db; color: #f08c00; padding: 8px 15px; border-radius: 8px; display: inline-block; margin-bottom: 20px; font-weight: bold;">
+                    Available Bonuses: <span th:text="${session.user.bonusPoints}">0</span>
+                </div>
+
+                <form method="post" th:action="@{/customer/order/checkout}">
+                    <div style="margin-bottom: 20px;">
+                        <label for="useBonuses"
+                               style="display: block; margin-bottom: 8px; font-weight: bold; color: #444;">
+                            Apply Bonuses to Discount:
+                        </label>
+                        <input id="useBonuses"
+                               min="0"
+                               name="useBonuses"
+                               style="width: 100%; max-width: 150px; padding: 10px; border-radius: 8px; border: 1px solid #ddd;"
+                               th:max="${session.user.bonusPoints}"
+                               type="number"
+                               value="0">
+                    </div>
+
+                    <button class="btn-main"
+                            style="width: 100%; padding: 15px; font-size: 1.1em; background: #28a745; border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: bold;"
+                            type="submit">
+                        Confirm and Checkout
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <a href="/customer/restaurants" style="text-decoration: none; color: #79a0c3; font-weight: bold;">&larr;
+                Back to restaurants</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{ai_chat :: ai-chat}"></div>
+<div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

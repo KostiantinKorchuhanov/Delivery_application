@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Active Delivery | FoodApp</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body style="margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div style="flex: 1;">
+    <div class="glass-panel" style="max-width: 600px;">
+
+        <h1 style="color: #2c3e50; border-bottom: 2px solid #79a0c3; padding-bottom: 10px; margin-bottom: 25px;">
+            Delivery Details #<span th:text="${order.orderId}"></span>
+        </h1>
+
+        <div class="delivery-info-section">
+            <h3>Customer</h3>
+            <div style="font-size: 1.2em; font-weight: bold; color: #2c3e50;"
+                 th:text="${order.customer?.name + ' ' + order.customer?.surname}">Name
+            </div>
+            <div style="margin-top: 5px; color: #4a6a8a; font-weight: 600;">
+                📞 <span th:text="${order.customer?.phoneNumber}">N/A</span>
+            </div>
+        </div>
+
+        <div class="delivery-info-section" style="border-left: 5px solid #fa5252;">
+            <h3>Pick-up Point</h3>
+            <div style="font-size: 1.1em; font-weight: bold;" th:text="${order.restaurant?.restaurantName}">Restaurant
+            </div>
+        </div>
+
+        <div class="delivery-info-section">
+            <h3>Order Content</h3>
+            <div class="item-row" th:each="item : ${order.orderItemList}">
+                <span>
+                    <strong th:text="${item.quantity}">1</strong> x
+                    <span th:text="${item.dish?.dishName}">Dish</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="total-banner">
+            Total to Collect: <span th:text="${order.orderTotalPrice + ' $'}">0.00 $</span>
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-top: 30px;">
+            <form method="post" style="flex: 2;" th:action="@{/driver/order/deliver}">
+                <button class="btn-main" style="width: 100%; background: #28a745; padding: 18px; font-size: 1.1em;"
+                        type="submit">
+                    COMPLETE DELIVERY
+                </button>
+            </form>
+
+            <a class="btn-secondary" href="/driver/dashboard"
+               style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                BACK
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

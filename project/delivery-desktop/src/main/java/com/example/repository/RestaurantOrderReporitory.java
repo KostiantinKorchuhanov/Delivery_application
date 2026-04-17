@@ -8,29 +8,14 @@ import jakarta.persistence.criteria.*;
 
 import java.util.List;
 
-/**
- * Repository for managing restaurant orders with detailed criteria fetching.
- *
- * @author Kostiantyn Korchuhanov
- * @version 1.0
- * Note: This class was once clean and beautiful. Then, reality happened. Please be kind to it.
- */
+
 public class RestaurantOrderReporitory {
     private final EntityManager em;
 
-    /**
-     * @param em JPA entity manager for database operations
-     */
     public RestaurantOrderReporitory(EntityManager em) {
         this.em = em;
     }
 
-    /**
-     * Retrieves all orders for a specific restaurant owner with pre-fetched details.
-     *
-     * @param ownerId unique identifier of the restaurant owner
-     * @return list of detailed orders
-     */
     public List<Orders> getOrdersByOwner(int ownerId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Orders> cq = cb.createQuery(Orders.class);
@@ -45,20 +30,10 @@ public class RestaurantOrderReporitory {
         return em.createQuery(cq).getResultList();
     }
 
-    /**
-     * Merges the state of the given order into the current persistence context.
-     *
-     * @param order order entity to update
-     */
     public void update(Orders order) {
         em.merge(order);
     }
 
-    /**
-     * Fetches all orders in the system with full relationship initialization.
-     *
-     * @return list of all orders with customer, restaurant, driver, and item details
-     */
     public List<Orders> findAllOrdersWithDetails() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Orders> cq = cb.createQuery(Orders.class);
@@ -75,29 +50,14 @@ public class RestaurantOrderReporitory {
         return em.createQuery(cq).getResultList();
     }
 
-    /**
-     * Persists a new order entity.
-     *
-     * @param order order to be saved
-     */
     public void addOrder(Orders order) {
         em.persist(order);
     }
 
-    /**
-     * Updates an existing order entity.
-     *
-     * @param order order to be updated
-     */
     public void updateOrder(Orders order) {
         em.merge(order);
     }
 
-    /**
-     * Removes an order from the database.
-     *
-     * @param order order entity to be deleted
-     */
     public void deleteOrder(Orders order) {
         Orders managedOrder = em.merge(order);
         em.remove(managedOrder);

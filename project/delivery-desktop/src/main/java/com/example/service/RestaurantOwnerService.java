@@ -8,23 +8,7 @@ import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
-/**
- * Service class for managing restaurant ownership logic.
- * Handles operations such as creation, updates, deletion, and searching of restaurants.
- *
- * @author Kostiantyn Korchuhanov
- * @version 1.0
- * <p>
- * Note: This documentation was written by an AI because the human developer is currently in a fetal position under the desk(please do not lover his grade)
- */
 public class RestaurantOwnerService {
-
-    /**
-     * Finds all restaurants associated with a specific owner ID.
-     *
-     * @param ownerId unique identifier of the owner
-     * @return list of owned restaurants
-     */
     public List<Restaurant> findAllRestaurants(int ownerId) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
@@ -35,15 +19,6 @@ public class RestaurantOwnerService {
         }
     }
 
-    /**
-     * Creates and persists a new restaurant for a given owner.
-     *
-     * @param name        name of the restaurant
-     * @param description text description of the restaurant
-     * @param address     physical address
-     * @param ownerId     ID of the owning {@link RestaurantOwner}
-     * @throws RuntimeException if the transaction fails
-     */
     public void saveNewRestaurant(String name, String description, String address, int ownerId) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
@@ -70,11 +45,6 @@ public class RestaurantOwnerService {
         }
     }
 
-    /**
-     * Updates an existing restaurant's profile.
-     *
-     * @param restaurant restaurant entity to merge
-     */
     public void updateRestaurant(Restaurant restaurant) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
@@ -92,11 +62,6 @@ public class RestaurantOwnerService {
         }
     }
 
-    /**
-     * Removes a restaurant from the system by ID.
-     *
-     * @param restaurantId unique identifier of the restaurant to delete
-     */
     public void deleteRestaurant(int restaurantId) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
@@ -114,14 +79,6 @@ public class RestaurantOwnerService {
         }
     }
 
-    /**
-     * Searches for restaurants belonging to an owner based on a search string.
-     * Defaults to all restaurants if the search text is empty.
-     *
-     * @param ownerId    unique identifier of the owner
-     * @param searchText query string to match against restaurant fields
-     * @return list of matching restaurants
-     */
     public List<Restaurant> searchRestaurants(int ownerId, String searchText) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {

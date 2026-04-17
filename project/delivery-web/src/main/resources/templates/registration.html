@@ -1,27 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Registration</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        .auth-container.wide {
+            max-width: 500px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        select option {
+            background-color: #333;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<h2>Sign Up</h2>
-<form action="/register" method="post">
-    <label>I am a:</label>
-    <select name="role">
-        <option value="customer">Customer</option>
-        <option value="driver">Driver</option>
-    </select><br><br>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="auth-container wide">
+    <h2>Sign Up</h2>
 
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="text" name="name" placeholder="First Name" required><br>
-    <input type="text" name="surname" placeholder="Last Name" required><br>
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="text" name="phoneNumber" placeholder="Phone Number"><br>
-    <input type="password" name="passwordHash" placeholder="Password" required><br>
-    <input type="password" name="passwordRepeat" placeholder="Repeat Password" required><br>
+    <form method="post" th:action="@{/register}">
+        <div class="input-group">
+            <label>I am a:</label>
+            <select name="role">
+                <option value="customer">Customer</option>
+                <option value="driver">Driver</option>
+            </select>
+        </div>
 
-    <button type="submit">Register</button>
-</form>
-<p>Already have an account? <a href="/login">Login here</a></p>
+        <div style="display: flex; gap: 15px;">
+            <div class="input-group" style="flex: 1;">
+                <label>Username</label>
+                <input name="username" required type="text">
+            </div>
+            <div class="input-group" style="flex: 1;">
+                <label>Email</label>
+                <input name="email" required type="email">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <div class="input-group" style="flex: 1;">
+                <label>First Name</label>
+                <input name="name" required type="text">
+            </div>
+            <div class="input-group" style="flex: 1;">
+                <label>Last Name</label>
+                <input name="surname" required type="text">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Phone Number</label>
+            <input name="phoneNumber" type="text">
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <div class="input-group" style="flex: 1;">
+                <label>Password</label>
+                <input name="passwordHash" required type="password">
+            </div>
+            <div class="input-group" style="flex: 1;">
+                <label>Repeat Password</label>
+                <input name="passwordRepeat" required type="password">
+            </div>
+        </div>
+
+        <button class="btn-primary" type="submit">Create Account</button>
+    </form>
+
+    <div class="auth-footer">
+        Already have an account? <a th:href="@{/login}">Login here</a>
+    </div>
+</div>
+<div th:replace="~{fragments :: footer}"></div>
 </body>
 </html>

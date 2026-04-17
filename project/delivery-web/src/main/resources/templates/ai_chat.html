@@ -1,0 +1,65 @@
+<div th:fragment="ai-chat">
+    <button class="ai-toggle-btn" onclick="toggleAiChat()">💬 AI Assistant</button>
+
+    <div class="ai-window" id="ai-chat-window">
+        <div class="ai-header">FoodApp Assistant</div>
+
+        <div class="ai-content" id="chat-content">
+            <div class="ai-message bot">
+                <strong>AI:</strong> Hello! How can I help you today?
+            </div>
+        </div>
+
+        <div class="ai-footer">
+            <input class="ai-input" id="ai-input" placeholder="Ask something..." type="text">
+            <button class="btn-main" onclick="sendAiMessage()" style="padding: 8px 15px;">Send</button>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        function toggleAiChat() {
+            var win = document.getElementById('ai-chat-window');
+            if (win.style.display === 'none' || win.style.display === '') {
+                win.style.display = 'flex';
+            } else {
+                win.style.display = 'none';
+            }
+        }
+
+        document.getElementById('ai-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendAiMessage();
+        });
+
+        async function sendAiMessage() {
+            var input = document.getElementById('ai-input');
+            var content = document.getElementById('chat-content');
+            var text = input.value.trim();
+            if (!text) return;
+
+            // Сообщение пользователя
+            content.innerHTML += '<div class="ai-message user">' + text + '</div>';
+            input.value = '';
+            content.scrollTop = content.scrollHeight;
+
+            try {
+                const response = await fetch('/api/ai/chat?message=' + encodeURIComponent(text));
+                const data = await response.json();
+
+                var botHtml = '<div class="ai-message bot"><strong>AI:</strong> ' + data.answer;
+
+                if (data.suggestedAction === 'VIEW_RESTAURANT' && data.restaurantId > 0) {
+                    botHtml += '<br><a href="/customer/restaurant/' + data.restaurantId + '" style="color: #79a0c3; font-weight: bold;">[View Menu]</a>';
+                }
+                if (data.suggestedAction === 'GO_TO_CART') {
+                    botHtml += '<br><a href="/customer/cart" style="color: #79a0c3; font-weight: bold;">[Go to Cart]</a>';
+                }
+                botHtml += '</div>';
+
+                content.innerHTML += botHtml;
+                content.scrollTop = content.scrollHeight;
+            } catch (err) {
+                content.innerHTML += '<div class="ai-message bot" style="color: red;">Error: AI is offline.</div>';
+            }
+        }
+    </script>
+</div>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body style="margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div style="flex: 1;">
+    <div class="glass-panel" style="max-width: 700px;">
+        <h1 style="color: #2c3e50; border-bottom: 2px solid #79a0c3; padding-bottom: 10px; margin-bottom: 25px;">User
+            Profile</h1>
+
+        <div style="background: #e6fcf5; color: #0ca678; padding: 15px; border-radius: 10px; margin-bottom: 20px;"
+             th:if="${param.updated}">
+            <strong>Success!</strong> Profile updated successfully.
+        </div>
+        <div style="background: #fff5f5; color: #fa5252; padding: 15px; border-radius: 10px; margin-bottom: 20px;"
+             th:if="${param.error}">
+            <strong>Error!</strong> An error occurred while updating.
+        </div>
+
+        <div class="profile-info-box">
+            <p><strong>Account Type:</strong> <span th:text="${session.user.class.simpleName}">Role</span></p>
+
+            <p th:if="${session.user.class.simpleName == 'Customer'}">
+                <strong>Your Bonuses:</strong> <span style="color: #2e7d32; font-weight: bold;"
+                                                     th:text="${session.user.bonusPoints}">0</span> pts
+            </p>
+
+            <div th:if="${session.user.class.simpleName == 'Driver'}">
+                <p><strong>Average Rating:</strong>
+                    <span style="color: #f39c12; font-weight: bold;"
+                          th:text="${session.user.averageRating > 0 ? #numbers.formatDecimal(session.user.averageRating, 1, 1) : 'No rating yet'}">0.0</span>
+                    / 5
+                </p>
+                <p><strong>Total Ratings:</strong> <span th:text="${session.user.totalRatings}">0</span></p>
+            </div>
+        </div>
+
+        <form method="post" th:action="@{/profile/update}">
+            <div class="input-group">
+                <label style="color: #333;">Username</label>
+                <input name="username" required style="background: white; color: #333;"
+                       th:value="${session.user.username}"
+                       type="text">
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <div class="input-group" style="flex: 1;">
+                    <label style="color: #333;">Email</label>
+                    <input name="email" required style="background: white; color: #333;"
+                           th:value="${session.user.email}"
+                           type="email">
+                </div>
+                <div class="input-group" style="flex: 1;">
+                    <label style="color: #333;">Phone</label>
+                    <input name="phoneNumber" style="background: white; color: #333;"
+                           th:value="${session.user.phoneNumber}"
+                           type="text">
+                </div>
+            </div>
+
+            <button class="btn-main" style="width: 100%;" type="submit">Update Information</button>
+        </form>
+
+        <div class="danger-zone">
+            <form method="post" style="flex: 1;" th:action="@{/logout}">
+                <button class="btn-secondary" style="width: 100%;" type="submit">Logout</button>
+            </form>
+
+            <form method="post" onsubmit="return confirm('Are you sure? This cannot be undone.');" style="flex: 1;"
+                  th:action="@{/profile/delete}">
+                <button class="btn-danger" style="width: 100%;" type="submit">Delete Account</button>
+            </form>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="/customer/restaurants" style="color: #79a0c3; text-decoration: none;"
+               th:if="${session.user.class.simpleName == 'Customer'}">&larr; Back to Restaurants</a>
+            <a href="/driver/dashboard" style="color: #79a0c3; text-decoration: none;"
+               th:if="${session.user.class.simpleName == 'Driver'}">&larr; Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

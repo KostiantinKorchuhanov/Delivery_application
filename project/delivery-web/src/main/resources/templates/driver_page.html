@@ -1,22 +1,97 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Driver Page</title></head>
-<body>
-<h1>Driver Dashboard</h1>
-<h3>Available Orders</h3>
-<ul>
-    <li th:each="order : ${availableOrders}">
-        Order #<span th:text="${order.orderId}"></span> -
-        Total: $<span th:text="${order.orderTotalPrice}"></span> -
-        Restaurant: $<span th:text="${order.restaurant}"></span> -
-        Status: <span th:text="${order.status}"></span>
-        <button>Accept</button>
-    </li>
-</ul>
-<div th:if="${#lists.isEmpty(availableOrders)}">
-    <p>No pending orders available.</p>
+<head>
+    <meta charset="UTF-8">
+    <title>Driver Dashboard | FoodApp</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body style="margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div style="flex: 1;">
+    <div class="glass-panel" style="max-width: 900px;">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 style="margin: 0; color: #2c3e50;">Driver Dashboard</h1>
+            <div class="badge-rating">
+                Average: <span th:text="${driver.averageRating + ' ★'}">0.0 ★</span>
+            </div>
+        </div>
+
+        <div class="active-order-card" th:if="${driver.currentOrder != null}">
+            <h2 style="margin-top: 0; color: #4a6a8a; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 0.8em;">🚚</span> Active Delivery
+            </h2>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                <div>
+                    <div style="color: #888; font-size: 0.9em;">Order ID</div>
+                    <strong style="font-size: 1.2em;">#<span th:text="${driver.currentOrder.orderId}"></span></strong>
+                </div>
+                <div>
+                    <div style="color: #888; font-size: 0.9em;">Status</div>
+                    <span class="status-badge status-delivered" th:text="${driver.currentOrder.status}">ACCEPTED</span>
+                </div>
+                <div style="grid-column: span 2;">
+                    <div style="color: #888; font-size: 0.9em;">Restaurant</div>
+                    <strong style="color: #2c3e50;"
+                            th:text="${driver.currentOrder.restaurant?.restaurantName ?: 'N/A'}"></strong>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 25px;">
+                <a class="btn-main" href="/driver/order/current" style="flex: 1; text-decoration: none;">View
+                    Details</a>
+
+                <form method="post" style="flex: 1;"
+                      th:action="@{/driver/order/deliver}" th:if="${driver.currentOrder.status == 'ACCEPTED'}">
+                    <button class="btn-main" style="width: 100%; background: #28a745;" type="submit">Finish Delivery
+                    </button>
+                </form>
+            </div>
+
+            <div style="margin-top: 20px; background: #fff9db; padding: 15px; border-radius: 12px; color: #856404; font-size: 0.9em; text-align: center;"
+                 th:if="${driver.currentOrder.status == 'DELIVERED'}">
+                ⏳ Waiting for customer confirmation...
+            </div>
+        </div>
+
+        <div th:if="${driver.currentOrder == null}">
+            <h3 style="color: #2c3e50; border-bottom: 2px solid #79a0c3; padding-bottom: 10px; margin-bottom: 20px;">
+                Available Orders</h3>
+
+            <ul class="order-item-list">
+                <li th:each="order : ${availableOrders}">
+                    <div>
+                        <div style="font-weight: bold; color: #4a6a8a; font-size: 1.1em;">Order #<span
+                                th:text="${order.orderId}"></span></div>
+                        <div style="color: #666; font-size: 0.9em; margin-top: 5px;">
+                            Pick up: <strong th:text="${order.restaurant?.restaurantName ?: 'Unknown'}"></strong>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <a style="color: #79a0c3; text-decoration: none; font-weight: 600; font-size: 0.9em;"
+                           th:href="@{/driver/order/details/{id}(id=${order.orderId})}">Details</a>
+
+                        <form method="post" th:action="@{/driver/order/accept}">
+                            <input name="orderId" th:value="${order.orderId}" type="hidden">
+                            <button class="btn-main" type="submit">Accept</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+            <div style="text-align: center; padding: 60px 0;" th:if="${#lists.isEmpty(availableOrders)}">
+                <div style="font-size: 3em; margin-bottom: 10px;">📭</div>
+                <p style="color: #999;">No new orders available. Check back later!</p>
+            </div>
+        </div>
+    </div>
 </div>
-<br>
-<a href="/login">Logout</a>
+
+<div th:replace="~{fragments :: footer}"></div>
+
 </body>
 </html>

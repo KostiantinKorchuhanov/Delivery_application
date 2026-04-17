@@ -3,14 +3,8 @@ package com.example.entity.restaurant;
 import jakarta.persistence.*;
 import lombok.*;
 
-/**
- * Represents a single menu item (Dish) within a restaurant.
- * This entity stores details about the dish's name, price, and availability status.
- *
- * @author Kostiantyn Korchuhanov
- * @version 1.0
- * @see Restaurant
- */
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @Entity
@@ -23,18 +17,30 @@ public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int dishId;
+
     private String dishName;
-    @Column(length = 1024)
-    private String description;
     private double price;
     private boolean available = true;
+    private Double specialPrice;
+    private LocalTime specialPriceStart;
+    private LocalTime specialPriceEnd;
 
-    /**
-     * The restaurant to which this dish belongs.
-     * This is a many-to-one relationship mapped to the "restaurantId" column.
-     */
+    @Column(length = 1024)
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "restaurantId")
     private Restaurant restaurant;
+
+    public double getActivePrice() {
+        LocalTime now = LocalTime.now();
+
+        if (specialPrice != null && specialPriceStart != null && specialPriceEnd != null) {
+            if (now.isAfter(specialPriceStart) && now.isBefore(specialPriceEnd)) {
+                return specialPrice;
+            }
+        }
+        return this.price;
+    }
 }
 

@@ -2,7 +2,9 @@ package org.example.deliveryweb.controller;
 
 import com.example.entity.user.Customer;
 import com.example.entity.user.Driver;
+import com.example.validation.GeneralValidation;
 import com.example.validation.subvalidation.PasswordValidation;
+import jakarta.servlet.http.HttpSession;
 import org.example.deliveryweb.repository.CustomerRepository;
 import org.example.deliveryweb.repository.DriverRepository;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ public class LoginController {
 
     private final CustomerRepository customerRepository;
     private final DriverRepository driverRepository;
+    private final GeneralValidation generalValidation = new GeneralValidation();
 
     public LoginController(CustomerRepository customerRepository, DriverRepository driverRepository) {
         this.customerRepository = customerRepository;
@@ -31,16 +34,19 @@ public class LoginController {
     @PostMapping("/login")
     public String loginUser(
             @RequestParam("username") String username,
-            @RequestParam("password") String password) {
+            @RequestParam("password") String password,
+            HttpSession session) {
 
         Optional<Driver> driver = driverRepository.findDriverByUsernameOrEmail(username, username);
-        if (driver.isPresent() && PasswordValidation.validatePassword(driver.get().getPasswordHash(), password)) {
+        if (driver.isPresent() && PasswordValidation.validatePassword(driver.get().getPasswordHash(), password) && generalValidation.validateUsername(username)) {
+            session.setAttribute("user", driver.get());
             return "redirect:/driver/dashboard";
         }
 
         Optional<Customer> customer = customerRepository.findCustomerByUsernameOrEmail(username, username);
-        if (customer.isPresent() && PasswordValidation.validatePassword(customer.get().getPasswordHash(), password)) {
-            return "redirect:/customer/home";
+        if (customer.isPresent() && PasswordValidation.validatePassword(customer.get().getPasswordHash(), password) && generalValidation.validateUsername(username)) {
+            session.setAttribute("user", customer.get());
+            return "redirect:/customer/restaurants";
         }
 
         return "redirect:/login?error";

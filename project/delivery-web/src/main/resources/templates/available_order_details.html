@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details | FoodApp</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body style="margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div style="flex: 1;">
+    <div class="glass-panel" style="max-width: 600px;">
+        <h1 style="color: #2c3e50; border-bottom: 2px solid #79a0c3; padding-bottom: 10px; margin-bottom: 25px;">
+            Order Preview #<span th:text="${order.orderId}">0</span>
+        </h1>
+
+        <div class="delivery-info-section">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <div style="color: #888; font-size: 0.8em; text-transform: uppercase;">Restaurant</div>
+                    <strong style="font-size: 1.1em;" th:text="${order.restaurant?.restaurantName}">Unknown</strong>
+                </div>
+                <div style="text-align: right;">
+                    <div style="color: #888; font-size: 0.8em; text-transform: uppercase;">Earnings</div>
+                    <strong style="color: #2e7d32; font-size: 1.1em;"
+                            th:text="${order.orderTotalPrice + ' $'}">0.00</strong>
+                </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <span class="status-badge status-pending" th:text="${order.status}">PENDING</span>
+            </div>
+        </div>
+
+        <div class="delivery-info-section">
+            <h3 style="margin-bottom: 10px;">Items to Pick-up:</h3>
+            <div class="preview-list-item" th:each="item : ${order.orderItemList}">
+                <div>
+                    <strong th:text="${item.dish?.dishName}">Dish Name</strong>
+                    <span style="color: #888; margin-left: 5px;" th:text="'(x' + ${item.quantity} + ')'"></span>
+                </div>
+                <div style="color: #4a6a8a; font-weight: bold;" th:text="${item.price * item.quantity + ' $'}"></div>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-top: 30px;">
+            <form method="post" style="flex: 2;" th:action="@{/driver/order/accept}">
+                <input name="orderId" th:value="${order.orderId}" type="hidden">
+                <button class="btn-main" style="width: 100%; background: #28a745; padding: 15px; font-size: 1.1em;"
+                        type="submit">
+                    Accept This Order
+                </button>
+            </form>
+
+            <a class="btn-secondary" href="/driver/dashboard"
+               style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                Back
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

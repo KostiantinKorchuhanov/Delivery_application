@@ -11,16 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-/**
- * Represents a specialized user role for Drivers in the system.
- * Extends the base {@link User} class and handles the delivery of orders.
- *
- * @author Kostiantyn Korchuhanov
- * @version 1.0
- * @see User
- * @see com.example.entity.order.Orders
- */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,11 +19,16 @@ import lombok.Setter;
 @Table(name = "driver_table")
 
 public class Driver extends User {
-    /**
-     * The specific order currently assigned to this driver for delivery.
-     * This is a one-to-one relationship mapped via the "currentOrderId" column.
-     */
     @OneToOne
     @JoinColumn(name = "currentOrderId")
     private Orders currentOrder;
+
+    private double averageRating = 0.0;
+    private int totalRatings = 0;
+
+    public void addRating(int newRating) {
+        double totalPoints = (averageRating * totalRatings) + newRating;
+        totalRatings++;
+        averageRating = totalPoints / totalRatings;
+    }
 }
