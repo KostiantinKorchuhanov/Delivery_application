@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,15 +20,19 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+
     @Column(unique = true, nullable = false)
     private String username;
+
     private String name;
     private String surname;
+    private String passwordHash;
+
     @Column(unique = true, nullable = false)
     private String email;
+
     @Column(length = 9)
     private String phoneNumber;
-    private String passwordHash;
 
     @Override
     public String toString() {

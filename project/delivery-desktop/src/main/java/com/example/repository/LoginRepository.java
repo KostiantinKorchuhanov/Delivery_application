@@ -13,13 +13,16 @@ public class LoginRepository {
         this.entityManager = entityManager;
     }
 
-    public User findUserByEmail(String email) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
+    public User findByEmailOrUsername(String identifier) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> query = cb.createQuery(User.class);
         Root<User> root = query.from(User.class);
-        query.select(root).where(builder.equal(root.get("email"), email));
-
+        query.select(root).where(
+                cb.or(
+                        cb.equal(root.get("email"), identifier),
+                        cb.equal(root.get("username"), identifier)
+                )
+        );
         return entityManager.createQuery(query).getResultStream().findFirst().orElse(null);
     }
 }
-

@@ -6,9 +6,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0"
-            prefWidth="995.0" styleClass="anchor-pane" stylesheets="@../styles/restaurant-dish.css"
-            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="736.0" prefWidth="995.0" styleClass="anchor-pane"
+            stylesheets="@../styles/restaurant-dish.css" xmlns="http://javafx.com/javafx/25"
             fx:controller="com.example.ui.controller.RestaurantOwnerRegisterController">
     <children>
         <Label styleClass="field-label" text="Restaurant Name" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="25.0">

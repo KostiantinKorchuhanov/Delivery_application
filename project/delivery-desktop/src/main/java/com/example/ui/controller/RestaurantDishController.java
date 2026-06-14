@@ -12,7 +12,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 public class RestaurantDishController {
+    private final RestaurantService restaurantService = new RestaurantService();
     @FXML
     private TextField dishNameField;
     @FXML
@@ -25,11 +29,15 @@ public class RestaurantDishController {
     private Button addDishButton;
     @FXML
     private Button deleteDishButton;
-
+    @FXML
+    private TextField specialPriceField;
+    @FXML
+    private TextField specialStartField;
+    @FXML
+    private TextField specialEndField;
 
     private Dish editingDish;
     private Restaurant currentRestaurant;
-    private final RestaurantService restaurantService = new RestaurantService();
 
     @FXML
     private void initialize() {
@@ -50,6 +58,16 @@ public class RestaurantDishController {
         dishAvialable.setSelected(dish.isAvailable());
         addDishButton.setText("Update Dish");
         deleteDishButton.setVisible(true);
+
+        if (dish.getSpecialPrice() != null) {
+            specialPriceField.setText(String.valueOf(dish.getSpecialPrice()));
+        }
+        if (dish.getSpecialPriceStart() != null) {
+            specialStartField.setText(dish.getSpecialPriceStart().toString());
+        }
+        if (dish.getSpecialPriceEnd() != null) {
+            specialEndField.setText(dish.getSpecialPriceEnd().toString());
+        }
     }
 
     @FXML
@@ -79,12 +97,32 @@ public class RestaurantDishController {
         }
     }
 
-    private void fillDishData(Dish dish) {
+    private void fillDishData(Dish dish) throws DateTimeParseException, IllegalArgumentException {
         dish.setDishName(dishNameField.getText());
         dish.setPrice(Double.parseDouble(dishPriceField.getText()));
         dish.setDescription(dishDescriptionField.getText());
         dish.setAvailable(dishAvialable.isSelected());
         dish.setRestaurant(currentRestaurant);
+
+        String sPrice = specialPriceField.getText();
+        if (sPrice != null && !sPrice.isEmpty()) {
+            dish.setSpecialPrice(Double.parseDouble(sPrice));
+
+            LocalTime start = LocalTime.parse(specialStartField.getText());
+            LocalTime end = LocalTime.parse(specialEndField.getText());
+
+            if (!end.isAfter(start)) {
+                AlertWindow.showError("Validation Error", "End time must be after start time");
+                throw new IllegalArgumentException("End time must be after start time.");
+            }
+
+            dish.setSpecialPriceStart(start);
+            dish.setSpecialPriceEnd(end);
+        } else {
+            dish.setSpecialPrice(null);
+            dish.setSpecialPriceStart(null);
+            dish.setSpecialPriceEnd(null);
+        }
     }
 
     public void deleteDish(ActionEvent actionEvent) {

@@ -1,15 +1,15 @@
 package com.example.service;
 
 import com.example.config.HibernateConfig;
-import com.example.entity.order.Orders;
+import com.example.entity.restaurant.Restaurant;
 import com.example.entity.user.User;
 import com.example.repository.AdminRepository;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
-public class AdminService {
 
+public class AdminService {
     public <T extends User> List<T> allUsers(Class<T> userClass) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
@@ -18,6 +18,7 @@ public class AdminService {
             em.close();
         }
     }
+
 
     public void updateUser(User user) {
         EntityManager em = HibernateConfig.getEntityManager();
@@ -32,6 +33,7 @@ public class AdminService {
             em.close();
         }
     }
+
 
     public void deleteUser(String email) {
         EntityManager em = HibernateConfig.getEntityManager();
@@ -52,6 +54,7 @@ public class AdminService {
         }
     }
 
+
     public List<User> searchUsers(String searchText) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
@@ -61,25 +64,29 @@ public class AdminService {
         }
     }
 
-    public List<Orders> getAllOrders() {
+    public List<Restaurant> getAllRestaurants() {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
-            return new AdminRepository(em).findAllOrdersWithDetails();
+            return new AdminRepository(em).getAllRestaurants();
         } finally {
             em.close();
         }
     }
 
-    public void updateOrder(Orders order) {
+    public Long getOrderCountByStatus(String status) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
-            em.getTransaction().begin();
-            order.calculateTotalPrice();
-            new AdminRepository(em).updateOrder(order);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) em.getTransaction().rollback();
-            e.printStackTrace();
+            return new AdminRepository(em).countOrdersByStatus(status);
+        } finally {
+            em.close();
+        }
+    }
+
+    public Double getTotalRevenue() {
+        EntityManager em = HibernateConfig.getEntityManager();
+        try {
+            Double revenue = new AdminRepository(em).getTotalRevenue();
+            return (revenue != null) ? revenue : 0.0;
         } finally {
             em.close();
         }

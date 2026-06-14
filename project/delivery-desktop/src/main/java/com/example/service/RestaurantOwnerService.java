@@ -9,7 +9,6 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 
 public class RestaurantOwnerService {
-
     public List<Restaurant> findAllRestaurants(int ownerId) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {

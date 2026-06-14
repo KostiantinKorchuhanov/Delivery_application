@@ -16,16 +16,16 @@ public class UserFieldValidation {
                 && generalValidation.validatePhone(phone)
                 && generalValidation.validateSurname(surname)
                 && generalValidation.validateUsername(username)
+                && password != null && !password.isEmpty()
                 && generalValidation.validatePasswordMatch(password, repeatedPassword)
                 && userType != null;
     }
 
-
     public TextFormatter<String> getPhoneFormatter(int maxLength) {
-        return new TextFormatter<>(change ->
-        {
+        return new TextFormatter<>(change -> {
             if (change.getControlNewText().length() > maxLength) {
-                return null;
+                change.setText("");
+                return change;
             }
             return change;
         });

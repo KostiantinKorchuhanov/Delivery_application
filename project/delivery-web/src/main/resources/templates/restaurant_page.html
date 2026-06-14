@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurants | FoodApp</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body style="margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div style="flex: 1;">
+    <div class="glass-panel">
+
+        <div style="margin-bottom: 20px;">
+            <h1 style="margin: 0; color: #2c3e50;">Choose Restaurant</h1>
+        </div>
+
+        <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 10px; margin-bottom: 20px;"
+             th:if="${param.ordered}">
+            <strong>Success!</strong> Your order has been placed.
+        </div>
+
+        <form class="search-container" method="get" th:action="@{/customer/restaurants/search}">
+            <input name="query" placeholder="What do you want to eat today?" th:value="${searchQuery}" type="text">
+            <button class="btn-main" type="submit">Search</button>
+            <a href="/customer/restaurants" style="padding: 10px; color: #999; text-decoration: none;"
+               th:if="${searchQuery != null}">Reset</a>
+        </form>
+
+        <div class="restaurant-grid">
+            <div class="restaurant-card" th:each="restaurant : ${restaurants}">
+                <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+                    <div>
+                        <div class="restaurant-title" th:text="${restaurant.restaurantName}">Restaurant Name</div>
+
+                        <p style="color: #666; font-size: 0.9em; line-height: 1.4; margin: 10px 0;"
+                           th:text="${restaurant.description != null && !restaurant.description.isEmpty()
+                                          ? restaurant.description
+                                          : 'Explore the diverse menu of ' + restaurant.restaurantName + '. Quality food delivered to your door.'}">
+                            Standard description text if database field is empty.
+                        </p>
+                    </div>
+
+                    <a class="btn-main"
+                       style="text-align: center; text-decoration: none; margin-top: 15px;"
+                       th:href="@{/customer/restaurant/{id}(id=${restaurant.restaurantId})}">
+                        View Menu
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 60px 20px;" th:if="${#lists.isEmpty(restaurants)}">
+            <div style="font-size: 3em; margin-bottom: 15px;">🍽️</div>
+            <p style="color: #999; font-size: 1.2em;">No restaurants found matching your criteria.</p>
+            <a href="/customer/restaurants" style="color: #79a0c3; text-decoration: none; font-weight: bold;">Show all
+                restaurants</a>
+        </div>
+    </div>
+</div>
+
+<th:block th:if="${session.user != null}">
+    <div th:replace="~{ai_chat :: ai-chat}"></div>
+</th:block>
+
+<div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

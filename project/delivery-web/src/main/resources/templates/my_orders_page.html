@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Orders | FoodApp</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body style="margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div style="flex: 1;">
+    <div class="glass-panel">
+        <h1 style="color: #2c3e50; border-bottom: 2px solid #79a0c3; padding-bottom: 10px; margin-bottom: 25px;">My
+            Order History</h1>
+
+        <div style="margin-bottom: 20px; display: flex; gap: 15px; align-items: center; font-size: 0.9em;">
+            <span style="color: #888;">Sort by:</span>
+            <a th:href="@{/customer/orders/my(sort='newest')}"
+               th:style="${currentSort == 'newest' ? 'font-weight: bold; color: #2c3e50;' : 'color: #79a0c3; text-decoration: none;'}">Newest</a>
+            <a th:href="@{/customer/orders/my(sort='oldest')}"
+               th:style="${currentSort == 'oldest' ? 'font-weight: bold; color: #2c3e50;' : 'color: #79a0c3; text-decoration: none;'}">Oldest</a>
+        </div>
+
+        <div style="text-align: center; padding: 40px; background: rgba(0,0,0,0.02); border: 2px dashed #ccc; border-radius: 15px;"
+             th:if="${myOrders == null or myOrders.isEmpty()}">
+            <p style="color: #666; font-size: 1.2em;">You have no orders yet.</p>
+            <a class="btn-main" href="/customer/restaurants" style="display: inline-block; text-decoration: none;">Start
+                Shopping</a>
+        </div>
+
+        <div class="order-card" th:each="order : ${myOrders}">
+            <div class="order-header">
+                <span class="order-id">Order #<span th:text="${order.orderId}"></span></span>
+                <span th:class="'status-badge ' +
+                            (${order.status == 'COMPLETED' ? 'status-completed' :
+                             (order.status == 'DELIVERED' ? 'status-delivered' : 'status-pending')})"
+                      th:text="${order.status}">Status</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.95em; margin-bottom: 10px;">
+                <div>
+                    <span style="color: #888;">Restaurant:</span>
+                    <strong th:text="${order.restaurant?.restaurantName}">Unknown</strong>
+                </div>
+                <div style="text-align: right;">
+                    <span style="color: #888;">Total Paid:</span>
+                    <strong style="color: #2c3e50;" th:text="${order.orderTotalPrice + ' $'}">0.00 $</strong>
+                </div>
+            </div>
+
+            <details style="margin-top: 10px; border-top: 1px dashed #eee; padding-top: 10px;">
+                <summary style="cursor: pointer; color: #79a0c3; font-weight: 600; font-size: 0.9em; outline: none;">
+                    View details
+                </summary>
+                <div style="padding: 10px 0;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                        <tr style="border-bottom: 1px solid #f9f9f9;" th:each="item : ${order.orderItemList}">
+                            <td style="padding: 5px 0; color: #555;" th:text="${item.dish.dishName}">Dish</td>
+                            <td style="padding: 5px 0; text-align: center; color: #888;"
+                                th:text="${item.quantity} + 'x'">1x
+                            </td>
+                            <td style="padding: 5px 0; text-align: right; font-weight: bold;"
+                                th:text="${item.price + ' $'}">0.00
+                            </td>
+                        </tr>
+                        <tr th:if="${order.bonusesUsed > 0}">
+                            <td style="padding: 8px 0; color: #e67e22;">Bonuses Applied</td>
+                            <td></td>
+                            <td style="padding: 8px 0; text-align: right; color: #e67e22;"
+                                th:text="'-' + ${order.bonusesUsed} + ' pts'"></td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <div class="rating-box" style="margin-top: 15px;" th:if="${order.status == 'DELIVERED'}">
+                <h3 style="margin: 0 0 10px 0; color: #856404;">🎉 Order Received!</h3>
+                <form method="post" th:action="@{/customer/order/complete}">
+                    <input name="orderId" th:value="${order.orderId}" type="hidden">
+                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+                        <label><strong>Rating:</strong></label>
+                        <select name="rating" required
+                                style="padding: 8px; border-radius: 8px; border: 1px solid #fbc02d;">
+                            <option value="5">5 ★ Excellent</option>
+                            <option value="4">4 ★ Good</option>
+                            <option value="3">3 ★ Average</option>
+                            <option value="2">2 ★ Poor</option>
+                            <option value="1">1 ★ Terrible</option>
+                        </select>
+                    </div>
+                    <textarea name="review" placeholder="Anything to add?"
+                              rows="2"
+                              style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #fbc02d; box-sizing: border-box; font-family: inherit;"></textarea>
+                    <button class="btn-main" style="margin-top: 15px; background: #28a745; width: 100%;" type="submit">
+                        Complete Order & Get Bonuses
+                    </button>
+                </form>
+            </div>
+
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #eee; font-size: 0.9em;"
+                 th:if="${order.status == 'COMPLETED'}">
+                <div style="color: #777;">Your Feedback:</div>
+                <div style="margin-top: 5px;">
+                    <span style="color: #f39c12; font-weight: bold;" th:text="${order.driverRating} + ' / 5 ★'"></span>
+                    <i style="margin-left: 10px; color: #555;"
+                       th:if="${order.review != null and !order.review.isEmpty()}"
+                       th:text="'«' + ${order.review} + '»'"></i>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <a href="/customer/restaurants" style="text-decoration: none; color: #79a0c3;">&larr; Back to
+                Restaurants</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{ai_chat :: ai-chat}"></div>
+<div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

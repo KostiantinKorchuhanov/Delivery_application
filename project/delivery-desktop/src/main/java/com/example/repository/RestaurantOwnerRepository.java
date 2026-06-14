@@ -20,6 +20,8 @@ public class RestaurantOwnerRepository {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Restaurant> cq = cb.createQuery(Restaurant.class);
         Root<Restaurant> root = cq.from(Restaurant.class);
+        root.fetch("reviews", jakarta.persistence.criteria.JoinType.LEFT);
+        cq.distinct(true);
         cq.select(root).where(cb.equal(root.get("owner").get("userId"), ownerId));
         return entityManager.createQuery(cq).getResultList();
     }
@@ -55,4 +57,3 @@ public class RestaurantOwnerRepository {
         return entityManager.createQuery(cq).getResultList();
     }
 }
-

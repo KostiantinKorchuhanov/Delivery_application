@@ -2,6 +2,7 @@ package com.example.repository;
 
 import jakarta.persistence.EntityManager;
 
+
 public class RegisterRepository {
     private final EntityManager entityManager;
 

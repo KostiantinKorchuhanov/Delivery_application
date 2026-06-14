@@ -1,10 +1,12 @@
 package com.example.repository;
 
-import com.example.entity.order.OrderInfo;
 import com.example.entity.order.Orders;
+import com.example.entity.restaurant.Restaurant;
 import com.example.entity.user.User;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
@@ -56,22 +58,27 @@ public class AdminRepository {
         return entityManager.createQuery(query).getResultList();
     }
 
-    public List<Orders> findAllOrdersWithDetails() {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Orders> cq = cb.createQuery(Orders.class);
-        Root<Orders> root = cq.from(Orders.class);
-        root.fetch("customer", JoinType.LEFT);
-        root.fetch("restaurant", JoinType.LEFT);
-        Fetch<Orders, OrderInfo> itemFetch = root.fetch("orderItemList", JoinType.LEFT);
-        itemFetch.fetch("dish", JoinType.LEFT);
-
-        cq.select(root).distinct(true);
-        cq.orderBy(cb.desc(root.get("orderId")));
-
-        return entityManager.createQuery(cq).getResultList();
+    public List<Restaurant> getAllRestaurants() {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Restaurant> query = builder.createQuery(Restaurant.class);
+        Root<Restaurant> root = query.from(Restaurant.class);
+        query.select(root);
+        return entityManager.createQuery(query).getResultList();
     }
 
-    public void updateOrder(Orders order) {
-        entityManager.merge(order);
+    public Long countOrdersByStatus(String status) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> query = cb.createQuery(Long.class);
+        Root<Orders> root = query.from(Orders.class);
+        query.select(cb.count(root)).where(cb.equal(root.get("status"), status));
+        return entityManager.createQuery(query).getSingleResult();
+    }
+
+    public Double getTotalRevenue() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Double> query = cb.createQuery(Double.class);
+        Root<Orders> root = query.from(Orders.class);
+        query.select(cb.sum(root.get("orderTotalPrice")));
+        return entityManager.createQuery(query).getSingleResult();
     }
 }

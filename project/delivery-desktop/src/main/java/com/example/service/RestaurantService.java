@@ -8,8 +8,10 @@ import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
-public class RestaurantService {
+public class
 
+
+RestaurantService {
     public List<Dish> findAllDishes(int restaurantId) {
         EntityManager em = HibernateConfig.getEntityManager();
         try {

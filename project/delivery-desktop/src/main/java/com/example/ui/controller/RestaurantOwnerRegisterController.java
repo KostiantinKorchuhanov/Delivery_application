@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class RestaurantOwnerRegisterController {
+    private final RestaurantService restaurantService = new RestaurantService();
     @FXML
     private TextField restaurantNameField;
     @FXML
@@ -40,10 +41,8 @@ public class RestaurantOwnerRegisterController {
     private FlowPane cardPane;
     @FXML
     private TextField searchField;
-
     private Restaurant editRestaurant;
     private Runnable runnable;
-    private final RestaurantService restaurantService = new RestaurantService();
 
     @FXML
     private void initialize() {

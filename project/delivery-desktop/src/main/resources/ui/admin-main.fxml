@@ -4,8 +4,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="650.0" prefWidth="800.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ui.controller.AdminWindowController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="650.0" prefWidth="800.0" styleClass="anchor-pane"
+            xmlns="http://javafx.com/javafx/25" fx:controller="com.example.ui.controller.AdminWindowController">
     <children>
         <ToolBar maxHeight="60.0" minHeight="40.0" prefHeight="60.0" AnchorPane.leftAnchor="220.0"
                  AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
@@ -115,10 +115,11 @@
                         <Text text="Statistics"/>
                     </children>
                 </VBox>
-                <TableView fx:id="tableOfOrders" prefHeight="200.0" prefWidth="200.0">
+                <TableView fx:id="tableOfOrders" prefHeight="200.0" prefWidth="200.0" visible="false">
                     <columns>
-                        <TableColumn fx:id="orderCustomerColumn" prefWidth="75.0" text="Customer order"/>
+                        <TableColumn fx:id="orderCustomerColumn" prefWidth="75.0" text="Customer"/>
                         <TableColumn fx:id="orderRestaurantColumn" prefWidth="75.0" text="Restaurant"/>
+                        <TableColumn fx:id="orderDriverColumn" prefWidth="75.0" text="Driver"/>
                         <TableColumn fx:id="orderDetailsColumn" prefWidth="75.0" text="Details"/>
                         <TableColumn fx:id="orderPriceColumn" prefWidth="75.0" text="Price"/>
                         <TableColumn fx:id="orderStatusColumn" prefWidth="75.0" text="Status"/>
@@ -131,4 +132,3 @@
         </StackPane>
     </children>
 </AnchorPane>
-

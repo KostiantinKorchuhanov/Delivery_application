@@ -40,7 +40,7 @@ public class NavigationManager {
         Scene scene = new Scene(loader.load(), 800, 650);
         scene.getStylesheets().add(NavigationManager.class.getResource(cssPath).toExternalForm());
         stage.setScene(scene);
-        stage.setTitle("Welcome, my cute " + userType);
+        stage.setTitle("Space for " + userType);
         stage.setMinWidth(800);
         stage.setMinHeight(650);
         stage.show();
@@ -51,7 +51,7 @@ public class NavigationManager {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/ui/choose-user.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 650);
         scene.getStylesheets().add(Main.class.getResource("/styles/login-style.css").toExternalForm());
-        stage.setTitle("hehehe");
+        stage.setTitle("Food App");
         stage.setScene(scene);
         stage.setMinWidth(800);
         stage.setMinHeight(650);
@@ -132,6 +132,19 @@ public class NavigationManager {
     public static void closeCurrentStage(Node node) {
         Stage currentStage = (Stage) node.getScene().getWindow();
         currentStage.close();
+    }
+
+    public static void navigateToOrderCreation() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/ui/admin-order.fxml"));
+        Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(NavigationManager.class.getResource("/styles/add-order.css").toExternalForm());
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.setMaximized(true);
+        stage.setTitle("Add a new order");
+        stage.showAndWait();
     }
 }
 

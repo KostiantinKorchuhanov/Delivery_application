@@ -1,9 +1,7 @@
 package com.example.service;
 
 import com.example.config.HibernateConfig;
-import com.example.entity.user.Admin;
-import com.example.entity.user.RestaurantOwner;
-import com.example.entity.user.User;
+import com.example.entity.user.*;
 import com.example.repository.LoginRepository;
 import com.example.repository.RegisterRepository;
 import com.example.repository.ValidationRepository;
@@ -12,9 +10,7 @@ import com.example.validation.subvalidation.PasswordValidation;
 import jakarta.persistence.EntityManager;
 
 public class UserService {
-
-    public boolean registerUser(String name, String surname, String username, String email,
-                                String password, String confirmPassword, String phoneNumber, String userType) {
+    public boolean registerUser(String name, String surname, String username, String email, String password, String confirmPassword, String phoneNumber, String userType) {
         if (!password.equals(confirmPassword)) {
             AlertWindow.showError("Registration Error", "Passwords do not match!");
             return false;
@@ -57,8 +53,7 @@ public class UserService {
         EntityManager em = HibernateConfig.getEntityManager();
         try {
             LoginRepository loginRepo = new LoginRepository(em);
-            User user = loginRepo.findUserByEmail(email);
-
+            User user = loginRepo.findByEmailOrUsername(email);
             if (user != null && PasswordValidation.validatePassword(user.getPasswordHash(), password)) {
                 System.out.println("Login successful");
                 return user;
@@ -72,10 +67,11 @@ public class UserService {
 
     private User createUserByType(String userType) {
         return switch (userType) {
+            case "Driver" -> new Driver();
+            case "Customer" -> new Customer();
             case "Restaurant" -> new RestaurantOwner();
             case "Admin" -> new Admin();
             default -> null;
         };
     }
 }
-
